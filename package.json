@@ -37,6 +37,7 @@
     "graphql": "^16.8.2",
     "graphql-upload": "^13.0.0",
     "install": "^0.13.0",
+    "nestjs-prisma": "^0.23.0",
     "npm": "^10.8.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
