@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ComponentType {
+  Header
+  Popup
+  Section
+  Footer
+}
+
+// 사이트
+model Site {
+  id     Int    @id @default(autoincrement())
+  domain String
+  email  String
+
+  // 컴포넌트
+  compoents Component[]
+
+  // 관리자
+  admins Admin[]
+}
+
+// 관리자
+model Admin {
+  id       Int    @id @default(autoincrement())
+  email    String
+  password String
+
+  // 사이트
+  siteId Int?
+  Site   Site? @relation(fields: [siteId], references: [id])
+}
+
+// 컴포넌트
+model Component {
+  id         Int           @id @default(autoincrement())
+  type       ComponentType
+  name       String?
+  title      String?
+  content    String?
+  background String?
+
+  // 사이트
+  siteId Int
+  Site   Site @relation(fields: [siteId], references: [id])
+}
+
+// 
