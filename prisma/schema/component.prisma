@@ -1,4 +1,4 @@
-// 컴포넌트 타입
+// 컴포넌트 종류
 enum ComponentType {
     Header
     Popup
@@ -8,14 +8,14 @@ enum ComponentType {
 
 // 컴포넌트
 model Component {
-    id         Int           @id @default(autoincrement())
-    type       ComponentType
-    name       String?
-    title      String?
-    content    String?
-    background String?
+    id            Int           @id @default(autoincrement())
+    componentType ComponentType
+    name          String
+    title         String?
+    content       String?
+    background    String?
 
     // 사이트
     siteId Int
-    Site   Site @relation(fields: [siteId], references: [id])
+    site   Site @relation(fields: [siteId], references: [id])
 }

@@ -1,0 +1,9 @@
+model SiteAdmin {
+    siteId Int
+    site   Site @relation(fields: [siteId], references: [id])
+
+    adminId Int
+    admin   Admin @relation(fields: [adminId], references: [id])
+
+    @@id([siteId, adminId])
+}

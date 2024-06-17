@@ -4,7 +4,5 @@ model Admin {
     email    String
     password String
 
-    // 사이트
-    siteId Int?
-    Site   Site? @relation(fields: [siteId], references: [id])
+    sites SiteAdmin[]
 }

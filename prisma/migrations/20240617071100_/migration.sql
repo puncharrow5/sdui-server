@@ -1,13 +1,4 @@
 -- CreateTable
-CREATE TABLE `Site` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `domain` VARCHAR(191) NOT NULL,
-    `email` VARCHAR(191) NOT NULL,
-
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
 CREATE TABLE `Admin` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `email` VARCHAR(191) NOT NULL,
@@ -20,12 +11,21 @@ CREATE TABLE `Admin` (
 -- CreateTable
 CREATE TABLE `Component` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `type` ENUM('Header', 'Popup', 'Section', 'Footer') NOT NULL,
+    `componentType` ENUM('Header', 'Popup', 'Section', 'Footer') NOT NULL,
     `name` VARCHAR(191) NULL,
     `title` VARCHAR(191) NULL,
     `content` VARCHAR(191) NULL,
     `background` VARCHAR(191) NULL,
     `siteId` INTEGER NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Site` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `domain` VARCHAR(191) NOT NULL,
+    `email` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
