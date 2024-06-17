@@ -1,6 +1,4 @@
 import { Logger, Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AdminModule } from './admin/admin.module';
 import { ComponentModule } from './component/component.module';
 import { PrismaModule, loggingMiddleware } from 'nestjs-prisma';
@@ -23,7 +21,7 @@ import { SiteModule } from './site/site.module';
     ComponentModule,
     SiteModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
