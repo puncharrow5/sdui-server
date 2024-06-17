@@ -1,26 +1,34 @@
 import { Injectable } from '@nestjs/common';
-import { CreateComponentInput } from './dto/create-component.input';
-import { UpdateComponentInput } from './dto/update-component.input';
+import { AddComponentArgs } from './dto';
+import { PrismaService } from 'nestjs-prisma';
 
 @Injectable()
 export class ComponentService {
-  create(createComponentInput: CreateComponentInput) {
-    return 'This action adds a new component';
+  constructor(private prisma: PrismaService) {}
+
+  // 컴포넌트 목록 조회
+  findManyComponent(siteId: number) {
+    return this.prisma.component.findMany({
+      where: { siteId },
+      orderBy: {
+        id: 'asc',
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all component`;
-  }
+  // 컴포넌트 추가
+  async addComponent({
+    siteId,
+    componentType,
+    name,
+    title,
+    content,
+    background,
+  }: AddComponentArgs) {
+    await this.prisma.component.create({
+      data: { siteId, componentType, name, title, content, background },
+    });
 
-  findOne(id: number) {
-    return `This action returns a #${id} component`;
-  }
-
-  update(id: number, updateComponentInput: UpdateComponentInput) {
-    return `This action updates a #${id} component`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} component`;
+    return true;
   }
 }

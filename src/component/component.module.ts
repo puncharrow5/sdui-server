@@ -4,5 +4,6 @@ import { ComponentResolver } from './component.resolver';
 
 @Module({
   providers: [ComponentResolver, ComponentService],
+  exports: [ComponentService],
 })
 export class ComponentModule {}
