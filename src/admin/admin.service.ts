@@ -1,20 +1,43 @@
 import { PrismaService } from 'nestjs-prisma';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreateAdminInput } from './dto/create-admin.input';
 import * as argon2 from 'argon2';
-import { CreateAdminArgs } from './dto';
+import { CreateAdminArgs, LoginWithEmailArgs } from './dto';
+import { CookieOptions, Response } from 'express';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AdminService {
-  constructor(private prisma: PrismaService) {}
+  private tokenCookieOption: CookieOptions = {
+    httpOnly: true,
+    path: '/',
+  };
+
+  constructor(
+    private prisma: PrismaService,
+    private readonly jwtService: JwtService,
+  ) {}
 
   findOne(id: number) {
     return `This action returns a #${id} admin`;
   }
 
+  // AccessToken 발급
+  createAccessToken(email: string, id: number) {
+    const accessToken = this.jwtService.sign(
+      {
+        email,
+        id,
+      },
+      {
+        secret: process.env.ACCESS_TOKEN_SECRET_KEY,
+        expiresIn: '24h',
+      },
+    );
+    return accessToken;
+  }
+
   // 회원가입
   async createAdmin({ email, password }: CreateAdminArgs) {
-    // 중복 이메일 체크
     const checkEmail = await this.prisma.admin.count({
       where: {
         email,
@@ -33,6 +56,34 @@ export class AdminService {
         password: hashedPassword,
       },
     });
+
+    return true;
+  }
+
+  // 로그인
+  async loginWithEmail({ email, password }: LoginWithEmailArgs, res: Response) {
+    const admin = await this.prisma.admin.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (!admin) {
+      throw new BadRequestException('이메일을 확인해주세요.');
+    }
+
+    const verifyPassword = await argon2.verify(admin.password, password);
+
+    if (!verifyPassword) {
+      throw new BadRequestException('비밀번호를 확인해주세요.');
+    }
+
+    // Access Token 생성
+    const accessToken = this.createAccessToken(admin.email, admin.id);
+
+    res.cookie('accessToken', accessToken, this.tokenCookieOption);
+    //  .cookie('refreshToken', refreshToken, this.tokenCookieOption)
+    //  .cookie('user', JSON.stringify(userInfo), this.userCookieOption);
 
     return true;
   }
