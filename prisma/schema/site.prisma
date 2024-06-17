@@ -1,0 +1,12 @@
+// 사이트
+model Site {
+    id     Int    @id @default(autoincrement())
+    domain String
+    email  String
+
+    // 컴포넌트
+    compoents Component[]
+
+    // 관리자
+    admins Admin[]
+}
