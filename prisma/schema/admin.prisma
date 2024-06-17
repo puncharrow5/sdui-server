@@ -1,7 +1,7 @@
 // 관리자
 model Admin {
     id       Int    @id @default(autoincrement())
-    email    String
+    email    String @unique
     password String
 
     sites SiteAdmin[]
