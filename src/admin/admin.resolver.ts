@@ -7,7 +7,7 @@ import { CreateAdminArgs, LoginWithEmailArgs } from './dto';
 export class AdminResolver {
   constructor(private readonly adminService: AdminService) {}
 
-  @Mutation(() => AdminEntity, { description: '회원가입' })
+  @Mutation(() => Boolean, { description: '회원가입' })
   createAdmin(@Args() createAdminArgs: CreateAdminArgs) {
     return this.adminService.createAdmin(createAdminArgs);
   }
@@ -18,10 +18,5 @@ export class AdminResolver {
     @Context() { res },
   ) {
     return await this.adminService.loginWithEmail(loginWithEmailArgs, res);
-  }
-
-  @Query(() => AdminEntity, { name: 'admin' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.adminService.findOne(id);
   }
 }

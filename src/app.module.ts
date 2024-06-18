@@ -1,13 +1,14 @@
 import { Logger, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AdminModule } from './admin/admin.module';
-import { ComponentModule } from './component/component.module';
 import { PrismaModule, loggingMiddleware } from 'nestjs-prisma';
 import { JwtModule } from '@nestjs/jwt';
-import { SiteModule } from './site/site.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GqlConfigService } from '@libs/config';
+import { PassportModule } from '@nestjs/passport';
+import { ComponentModule } from './component/component.module';
+import { AdminModule } from './admin/admin.module';
+import { SiteModule } from './site/site.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { GqlConfigService } from '@libs/config';
       driver: ApolloDriver,
       useClass: GqlConfigService,
     }),
+    PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       secret: process.env.ACCESS_TOKEN_SECRET_KEY,
     }),

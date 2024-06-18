@@ -1,0 +1,124 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""사이트"""
+type SiteEntity {
+  """ID"""
+  id: Int!
+
+  """도메인"""
+  domain: String!
+
+  """사이트 이메일"""
+  email: String!
+
+  """컴포넌트 목록"""
+  components: [ComponentEntity!]!
+}
+
+"""컴포넌트"""
+type ComponentEntity {
+  """ID"""
+  id: Int!
+
+  """컴포넌트 종류"""
+  componentType: ComponentType!
+
+  """컴포넌트 이름"""
+  name: String!
+
+  """제목"""
+  title: String
+
+  """내용"""
+  content: String
+
+  """배경"""
+  background: String
+
+  """사이트 ID"""
+  siteId: Int!
+}
+
+"""컴포넌트 종류"""
+enum ComponentType {
+  """헤더"""
+  Header
+
+  """팝업"""
+  Popup
+
+  """섹션"""
+  Section
+
+  """푸터"""
+  Footer
+}
+
+type Query {
+  """ID로 사이트 조회"""
+  findOneSiteById(
+    """ID"""
+    id: Int!
+  ): SiteEntity!
+
+  """도메인으로 사이트 조회"""
+  findOneSiteByDomain(
+    """도메인"""
+    domain: String!
+  ): SiteEntity!
+}
+
+type Mutation {
+  """회원가입"""
+  createAdmin(
+    """이메일"""
+    email: String!
+
+    """비밀번호"""
+    password: String!
+  ): Boolean!
+
+  """로그인"""
+  login(
+    """이메일"""
+    email: String!
+
+    """비밀번호"""
+    password: String!
+  ): Boolean!
+
+  """컴포넌트 추가"""
+  addComponent(
+    """사이트 ID"""
+    siteId: Int!
+
+    """컴포넌트 종류"""
+    componentType: ComponentType!
+
+    """컴포넌트 이름"""
+    name: String!
+
+    """제목"""
+    title: String
+
+    """내용"""
+    content: String
+
+    """배경"""
+    background: String
+  ): Boolean!
+
+  """사이트 생성"""
+  createSite(
+    """관리자 ID"""
+    id: Float!
+
+    """도메인"""
+    domain: String!
+
+    """이메일"""
+    email: String!
+  ): Boolean!
+}

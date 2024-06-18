@@ -1,8 +1,8 @@
-import { InputType, Field, PickType } from '@nestjs/graphql';
+import { Field, PickType, ArgsType } from '@nestjs/graphql';
 import { AdminEntity } from '@libs/entity';
 import { IsEmail, IsString } from 'class-validator';
 
-@InputType()
+@ArgsType()
 export class LoginWithEmailArgs extends PickType(AdminEntity, [
   'email',
   'password',

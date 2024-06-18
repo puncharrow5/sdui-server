@@ -1,9 +1,9 @@
-import { InputType, Int, Field, PickType } from '@nestjs/graphql';
+import { Int, Field, PickType, ArgsType } from '@nestjs/graphql';
 import { ComponentEntity } from '@libs/entity';
 import { ComponentType } from '@prisma/client';
 import { IsEnum, IsInt, IsString } from 'class-validator';
 
-@InputType()
+@ArgsType()
 export class AddComponentArgs extends PickType(ComponentEntity, [
   'siteId',
   'componentType',

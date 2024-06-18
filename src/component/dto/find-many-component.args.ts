@@ -1,8 +1,8 @@
-import { InputType, Int, Field, PickType } from '@nestjs/graphql';
+import { Int, Field, PickType, ArgsType } from '@nestjs/graphql';
 import { ComponentEntity } from '@libs/entity';
 import { IsInt } from 'class-validator';
 
-@InputType()
+@ArgsType()
 export class FindManyComponentArgs extends PickType(ComponentEntity, [
   'siteId',
 ]) {

@@ -15,19 +15,19 @@ import {
 } from './dto';
 import { ComponentService } from 'src/component/component.service';
 
-@Resolver()
+@Resolver(() => SiteEntity)
 export class SiteResolver {
   constructor(
     private readonly siteService: SiteService,
     private readonly componentService: ComponentService,
   ) {}
 
-  @Query(() => SiteEntity, { name: 'ID로 사이트 조회' })
+  @Query(() => SiteEntity, { description: 'ID로 사이트 조회' })
   findOneSiteById(@Args() findOneSiteByIdArgs: FindOneSiteByIdArgs) {
     return this.siteService.findOneSiteById(findOneSiteByIdArgs);
   }
 
-  @Query(() => SiteEntity, { name: '도메인으로 사이트 조회' })
+  @Query(() => SiteEntity, { description: '도메인으로 사이트 조회' })
   findOneSiteByDomain(
     @Args() findOneSiteByDomainArgs: FindOneSiteByDomainArgs,
   ) {

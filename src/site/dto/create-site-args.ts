@@ -1,14 +1,8 @@
-import {
-  InputType,
-  Int,
-  Field,
-  PickType,
-  IntersectionType,
-} from '@nestjs/graphql';
+import { Field, PickType, IntersectionType, ArgsType } from '@nestjs/graphql';
 import { IsEmail, IsInt, IsString } from 'class-validator';
 import { AdminEntity, SiteEntity } from '@libs/entity';
 
-@InputType()
+@ArgsType()
 export class CreateSiteArgs extends IntersectionType(
   PickType(SiteEntity, ['domain', 'email']),
   PickType(AdminEntity, ['id']),
