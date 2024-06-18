@@ -14,10 +14,10 @@ type SiteEntity {
   email: String!
 
   """컴포넌트 목록"""
-  components: [ComponentEntity!]!
+  components: [ComponentEntity!]
 
   """헤더"""
-  header: HeaderEntity!
+  header: HeaderEntity
 }
 
 """헤더"""

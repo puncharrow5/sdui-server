@@ -53,6 +53,7 @@ export class SiteResolver {
 
   @ResolveField('components', () => [ComponentEntity], {
     description: '컴포넌트 목록',
+    nullable: true,
   })
   components(@Parent() site: SiteEntity) {
     const { id } = site;
@@ -62,6 +63,7 @@ export class SiteResolver {
 
   @ResolveField('header', () => HeaderEntity, {
     description: '헤더',
+    nullable: true,
   })
   header(@Parent() site: SiteEntity) {
     const { id } = site;
