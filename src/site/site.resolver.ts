@@ -14,6 +14,10 @@ import {
   FindOneSiteByIdArgs,
 } from './dto';
 import { ComponentService } from 'src/component/component.service';
+import { UseGuards } from '@nestjs/common';
+import { AdminAccessGuard } from '@libs/guard';
+import { AuthModel } from 'src/auth/auth.model';
+import { CurrentAuth } from '@libs/decorator';
 
 @Resolver(() => SiteEntity)
 export class SiteResolver {
@@ -34,9 +38,15 @@ export class SiteResolver {
     return this.siteService.findOneSiteByDomain(findOneSiteByDomainArgs);
   }
 
+  @UseGuards(AdminAccessGuard)
   @Mutation(() => Boolean, { description: '사이트 생성' })
-  createSite(@Args() createSiteArgs: CreateSiteArgs) {
-    return this.siteService.createSite(createSiteArgs);
+  createSite(
+    @Args() createSiteArgs: CreateSiteArgs,
+    @CurrentAuth() auth: AuthModel,
+  ) {
+    const adminId = auth.id;
+
+    return this.siteService.createSite(createSiteArgs, adminId);
   }
 
   @ResolveField('components', () => [ComponentEntity], {

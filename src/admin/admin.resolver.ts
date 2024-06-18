@@ -12,7 +12,7 @@ export class AdminResolver {
     return this.adminService.createAdmin(createAdminArgs);
   }
 
-  @Mutation(() => Boolean, { description: '로그인' })
+  @Mutation(() => String, { description: '로그인' })
   async login(
     @Args() loginWithEmailArgs: LoginWithEmailArgs,
     @Context() { res },

@@ -87,7 +87,7 @@ type Mutation {
 
     """비밀번호"""
     password: String!
-  ): Boolean!
+  ): String!
 
   """컴포넌트 추가"""
   addComponent(
@@ -112,9 +112,6 @@ type Mutation {
 
   """사이트 생성"""
   createSite(
-    """관리자 ID"""
-    id: Float!
-
     """도메인"""
     domain: String!
 

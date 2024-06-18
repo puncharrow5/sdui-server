@@ -9,6 +9,7 @@ import { PassportModule } from '@nestjs/passport';
 import { ComponentModule } from './component/component.module';
 import { AdminModule } from './admin/admin.module';
 import { SiteModule } from './site/site.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { SiteModule } from './site/site.module';
     AdminModule,
     ComponentModule,
     SiteModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

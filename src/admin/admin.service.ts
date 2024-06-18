@@ -4,11 +4,19 @@ import * as argon2 from 'argon2';
 import { CreateAdminArgs, LoginWithEmailArgs } from './dto';
 import { CookieOptions, Response } from 'express';
 import { JwtService } from '@nestjs/jwt';
+import { Prisma } from '@prisma/client';
+import { DefaultArgs } from '@prisma/client/runtime/library';
+import { AdminEntity } from '@libs/entity';
 
 @Injectable()
 export class AdminService {
   private tokenCookieOption: CookieOptions = {
     httpOnly: true,
+    path: '/',
+  };
+
+  private adminCookieOption: CookieOptions = {
+    httpOnly: false,
     path: '/',
   };
 
@@ -81,13 +89,22 @@ export class AdminService {
     // Access Token 생성
     const accessToken = this.createAccessToken(admin.email, admin.id);
 
-    res.cookie('accessToken', accessToken, this.tokenCookieOption);
+    const adminInfo = { id: admin.id, email: admin.email };
+
+    res
+      .cookie('accessToken', accessToken, this.tokenCookieOption)
+      .cookie('admin', JSON.stringify(adminInfo), this.adminCookieOption);
     //  .cookie('refreshToken', refreshToken, this.tokenCookieOption)
     //  .cookie('user', JSON.stringify(userInfo), this.userCookieOption);
 
-    return true;
+    return accessToken;
   }
 
-  // 비밀번호 확인 로직
-  // isSamePassword = await argon2.verify(identityAccount.password, password);
+  // 관리자 ID로 관리자 조회
+  findAdminById(
+    id: number,
+    select?: Prisma.AdminSelect<DefaultArgs>,
+  ): Promise<AdminEntity> {
+    return this.prisma.admin.findUnique({ where: { id }, select });
+  }
 }

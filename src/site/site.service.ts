@@ -37,7 +37,7 @@ export class SiteService {
   }
 
   // 사이트 생성
-  async createSite({ id, domain, email }: CreateSiteArgs) {
+  async createSite({ domain, email }: CreateSiteArgs, adminId: number) {
     await this.prisma.$transaction(async (tx) => {
       const checkDomain = await tx.site.findUnique({
         where: { domain },
@@ -48,7 +48,7 @@ export class SiteService {
       }
 
       const admin = await tx.admin.findUnique({
-        where: { id },
+        where: { id: adminId },
       });
 
       if (!admin) {
@@ -63,7 +63,7 @@ export class SiteService {
       });
 
       await tx.siteAdmin.create({
-        data: { adminId: id, siteId: site.id },
+        data: { adminId, siteId: site.id },
       });
     });
 
