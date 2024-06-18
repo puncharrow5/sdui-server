@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql';
 import { AdminService } from './admin.service';
-import { AdminEntity } from 'libs/entity/src';
+import { AdminEntity } from '@libs/entity';
 import { CreateAdminArgs, LoginWithEmailArgs } from './dto';
 
 @Resolver(() => AdminEntity)

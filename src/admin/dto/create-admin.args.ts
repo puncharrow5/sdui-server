@@ -1,5 +1,5 @@
 import { InputType, Field, PickType } from '@nestjs/graphql';
-import { AdminEntity } from 'libs/entity/src';
+import { AdminEntity } from '@libs/entity';
 import { IsEmail, IsString } from 'class-validator';
 
 @InputType()

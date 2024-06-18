@@ -6,7 +6,7 @@ import {
   IntersectionType,
 } from '@nestjs/graphql';
 import { IsEmail, IsInt, IsString } from 'class-validator';
-import { AdminEntity, SiteEntity } from 'libs/entity/src';
+import { AdminEntity, SiteEntity } from '@libs/entity';
 
 @InputType()
 export class CreateSiteArgs extends IntersectionType(

@@ -1,6 +1,6 @@
 import { InputType, Int, Field, PickType } from '@nestjs/graphql';
+import { SiteEntity } from '@libs/entity';
 import { IsString } from 'class-validator';
-import { SiteEntity } from 'libs/entity/src';
 
 @InputType()
 export class FindOneSiteByDomainArgs extends PickType(SiteEntity, ['domain']) {

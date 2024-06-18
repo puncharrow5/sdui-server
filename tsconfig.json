@@ -16,6 +16,13 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@libs/entity": ["libs/entity/src"],
+      "@libs/entity/*": ["libs/entity/src/*"],
+      "@libs/config": ["libs/config/src"],
+      "@libs/guard": ["libs/guard/src"],
+      "@libs/guard/*": ["libs/guard/src/*"]
+    }
   }
 }

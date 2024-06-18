@@ -1,6 +1,6 @@
 import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { ComponentService } from './component.service';
-import { ComponentEntity } from 'libs/entity/src';
+import { ComponentEntity } from '@libs/entity';
 import { AddComponentArgs } from './dto';
 
 @Resolver(() => ComponentEntity)

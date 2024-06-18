@@ -7,7 +7,7 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import { SiteService } from './site.service';
-import { ComponentEntity, SiteEntity } from 'libs/entity/src';
+import { ComponentEntity, SiteEntity } from '@libs/entity';
 import {
   CreateSiteArgs,
   FindOneSiteByDomainArgs,
