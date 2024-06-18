@@ -1,8 +1,8 @@
 // 컴포넌트 종류
 enum ComponentType {
-    Header
     Popup
     Section
+    Inquiry
     Footer
 }
 
@@ -12,7 +12,9 @@ model Component {
     componentType ComponentType
     name          String
     title         String?
+    titleStyle    String?
     content       String?
+    contentStyle  String?
     background    String?
 
     // 사이트
