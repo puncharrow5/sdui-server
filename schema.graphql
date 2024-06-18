@@ -15,6 +15,27 @@ type SiteEntity {
 
   """컴포넌트 목록"""
   components: [ComponentEntity!]!
+
+  """헤더"""
+  header: HeaderEntity!
+}
+
+"""헤더"""
+type HeaderEntity {
+  """ID"""
+  id: Int!
+
+  """로고"""
+  logo: String
+
+  """배경 색상"""
+  backgroundColor: String
+
+  """텍스트 색상"""
+  textColor: String
+
+  """사이트 ID"""
+  siteId: Int!
 }
 
 """컴포넌트"""
@@ -31,8 +52,14 @@ type ComponentEntity {
   """제목"""
   title: String
 
+  """제목 스타일"""
+  titleStyle: String
+
   """내용"""
   content: String
+
+  """내용 스타일"""
+  contentStyle: String
 
   """배경"""
   background: String
@@ -43,14 +70,12 @@ type ComponentEntity {
 
 """컴포넌트 종류"""
 enum ComponentType {
-  """헤더"""
-  Header
-
   """팝업"""
   Popup
 
   """섹션"""
   Section
+  Inquiry
 
   """푸터"""
   Footer
@@ -103,8 +128,14 @@ type Mutation {
     """제목"""
     title: String
 
+    """제목"""
+    titleStyle: String
+
     """내용"""
     content: String
+
+    """내용 스타일"""
+    contentStyle: String
 
     """배경"""
     background: String
@@ -117,5 +148,17 @@ type Mutation {
 
     """이메일"""
     email: String!
+  ): Boolean!
+
+  """헤더 스타일 설정"""
+  setHeaderStyle(
+    """사이트 ID"""
+    siteId: Int!
+
+    """배경 색상"""
+    backgroundColor: String
+
+    """텍스트 색상"""
+    textColor: String
   ): Boolean!
 }

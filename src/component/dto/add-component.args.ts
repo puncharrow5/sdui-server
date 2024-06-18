@@ -9,7 +9,9 @@ export class AddComponentArgs extends PickType(ComponentEntity, [
   'componentType',
   'name',
   'title',
+  'titleStyle',
   'content',
+  'contentStyle',
   'background',
 ]) {
   @Field(() => Int, { description: '사이트 ID' })
@@ -31,10 +33,20 @@ export class AddComponentArgs extends PickType(ComponentEntity, [
   @IsOptional()
   title: string | null;
 
+  @Field({ description: '제목', nullable: true })
+  @IsString({ message: '올바른 형식의 제목 스타일을 입력해주세요.' })
+  @IsOptional()
+  titleStyle: string | null;
+
   @Field({ description: '내용', nullable: true })
   @IsString({ message: '올바른 형식의 내용을 입력해주세요.' })
   @IsOptional()
   content: string | null;
+
+  @Field({ description: '내용 스타일', nullable: true })
+  @IsString({ message: '올바른 형식의 내용 스타일을 입력해주세요.' })
+  @IsOptional()
+  contentStyle: string | null;
 
   @Field({ description: '배경', nullable: true })
   @IsString({ message: '올바른 형식의 배경을 입력해주세요.' })

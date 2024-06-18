@@ -10,6 +10,7 @@ import { ComponentModule } from './component/component.module';
 import { AdminModule } from './admin/admin.module';
 import { SiteModule } from './site/site.module';
 import { AuthModule } from './auth/auth.module';
+import { HeaderModule } from './header/header.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { AuthModule } from './auth/auth.module';
     ComponentModule,
     SiteModule,
     AuthModule,
+    HeaderModule,
   ],
   controllers: [],
   providers: [],

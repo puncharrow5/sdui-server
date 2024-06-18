@@ -22,11 +22,26 @@ export class ComponentService {
     componentType,
     name,
     title,
+    titleStyle,
     content,
+    contentStyle,
     background,
   }: AddComponentArgs) {
     await this.prisma.component.create({
-      data: { siteId, componentType, name, title, content, background },
+      data: {
+        site: {
+          connect: {
+            id: siteId,
+          },
+        },
+        componentType,
+        name,
+        title,
+        titleStyle,
+        content,
+        contentStyle,
+        background,
+      },
     });
 
     return true;
