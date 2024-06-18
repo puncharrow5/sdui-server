@@ -1,7 +1,7 @@
 import { Int, Field, PickType, ArgsType } from '@nestjs/graphql';
 import { ComponentEntity } from '@libs/entity';
 import { ComponentType } from '@prisma/client';
-import { IsEnum, IsInt, IsString } from 'class-validator';
+import { IsEnum, IsInt, IsOptional, IsString } from 'class-validator';
 
 @ArgsType()
 export class AddComponentArgs extends PickType(ComponentEntity, [
@@ -28,13 +28,16 @@ export class AddComponentArgs extends PickType(ComponentEntity, [
 
   @Field({ description: '제목', nullable: true })
   @IsString({ message: '올바른 형식의 제목을 입력해주세요.' })
+  @IsOptional()
   title: string | null;
 
   @Field({ description: '내용', nullable: true })
   @IsString({ message: '올바른 형식의 내용을 입력해주세요.' })
+  @IsOptional()
   content: string | null;
 
   @Field({ description: '배경', nullable: true })
   @IsString({ message: '올바른 형식의 배경을 입력해주세요.' })
+  @IsOptional()
   background: string | null;
 }
