@@ -14,13 +14,19 @@ enum BackgroundType {
 
 // 컴포넌트
 model Component {
-    id             Int             @id @default(autoincrement())
-    componentType  ComponentType
-    name           String
-    title          String?
-    titleStyle     TitleStyle?
-    content        String?
-    contentStyle   ContentStyle?
+    id            Int           @id @default(autoincrement())
+    componentType ComponentType
+    name          String
+
+    // 제목
+    title      String?
+    titleStyle TitleStyle?
+
+    // 내용
+    content      String?
+    contentStyle ContentStyle?
+
+    // 배경
     background     String?
     backgroundType BackgroundType?
 

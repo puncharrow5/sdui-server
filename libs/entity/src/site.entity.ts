@@ -9,6 +9,9 @@ export class SiteEntity implements Site {
   @Field({ description: '도메인' })
   domain: string;
 
+  @Field({ description: '이름' })
+  name: string;
+
   @Field({ description: '사이트 이메일' })
   email: string;
 }

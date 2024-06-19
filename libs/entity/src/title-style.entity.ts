@@ -24,6 +24,6 @@ export class TitleStyleEntity implements TitleStyle {
   @Field({ description: '텍스트 색상', nullable: true })
   textColor: string | null;
 
-  @Field(() => Int, { description: '컴포넌트 ID' })
+  @Field({ description: '컴포넌트 ID' })
   componentId: number;
 }
