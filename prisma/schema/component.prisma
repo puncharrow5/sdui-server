@@ -18,11 +18,11 @@ model Component {
     componentType  ComponentType
     name           String
     title          String?
-    titleStyle     String?
+    titleStyle     TitleStyle?
     content        String?
-    contentStyle   String?
-    backgroundType BackgroundType?
+    contentStyle   ContentStyle?
     background     String?
+    backgroundType BackgroundType?
 
     // 사이트
     siteId Int

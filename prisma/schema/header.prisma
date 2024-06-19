@@ -3,6 +3,7 @@ model Header {
     id              Int     @id @default(autoincrement())
     logo            String?
     backgroundColor String?
+    textSize        String?
     textColor       String?
 
     // 사이트

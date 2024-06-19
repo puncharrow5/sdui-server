@@ -1,0 +1,29 @@
+// 제목 스타일
+model TitleStyle {
+    id           Int     @id @default(autoincrement())
+    textSize     Int?
+    textColor    String?
+    marginTop    Int?
+    marginBottom Int?
+    marginRight  Int?
+    marginLeft   Int?
+
+    // 컴포넌트
+    componentId Int?       @unique
+    component   Component? @relation(fields: [componentId], references: [id])
+}
+
+// 내용 스타일
+model ContentStyle {
+    id           Int     @id @default(autoincrement())
+    textSize     Int?
+    textColor    String?
+    marginTop    Int?
+    marginBottom Int?
+    marginRight  Int?
+    marginLeft   Int?
+
+    // 컴포넌트
+    componentId Int?       @unique
+    component   Component? @relation(fields: [componentId], references: [id])
+}
