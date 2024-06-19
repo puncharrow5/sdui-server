@@ -41,6 +41,14 @@ export class SiteResolver {
   }
 
   @UseGuards(AdminAccessGuard)
+  @Query(() => [SiteEntity], { description: '관리자 ID로 사이트 목록 조회' })
+  findManySite(@CurrentAuth() auth: AuthModel) {
+    const adminId = auth.id;
+
+    return this.siteService.findManySite(adminId);
+  }
+
+  @UseGuards(AdminAccessGuard)
   @Mutation(() => Boolean, { description: '사이트 생성' })
   createSite(
     @Args() createSiteArgs: CreateSiteArgs,

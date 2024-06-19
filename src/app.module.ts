@@ -11,6 +11,7 @@ import { AdminModule } from './admin/admin.module';
 import { SiteModule } from './site/site.module';
 import { AuthModule } from './auth/auth.module';
 import { HeaderModule } from './header/header.module';
+import { StyleModule } from './style/style.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { HeaderModule } from './header/header.module';
     SiteModule,
     AuthModule,
     HeaderModule,
+    StyleModule,
   ],
   controllers: [],
   providers: [],
