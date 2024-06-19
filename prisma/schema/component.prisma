@@ -1,21 +1,28 @@
 // 컴포넌트 종류
 enum ComponentType {
-    Popup
-    Section
-    Inquiry
-    Footer
+    POPUP
+    SECTION
+    INQUIRY
+    FOOTER
+}
+
+// 배경 종류
+enum BackgroundType {
+    COLOR
+    IMAGE
 }
 
 // 컴포넌트
 model Component {
-    id            Int           @id @default(autoincrement())
-    componentType ComponentType
-    name          String
-    title         String?
-    titleStyle    String?
-    content       String?
-    contentStyle  String?
-    background    String?
+    id             Int             @id @default(autoincrement())
+    componentType  ComponentType
+    name           String
+    title          String?
+    titleStyle     String?
+    content        String?
+    contentStyle   String?
+    backgroundType BackgroundType?
+    background     String?
 
     // 사이트
     siteId Int

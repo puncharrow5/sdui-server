@@ -61,6 +61,9 @@ type ComponentEntity {
   """내용 스타일"""
   contentStyle: String
 
+  """배경 종류"""
+  backgroundType: BackgroundType
+
   """배경"""
   background: String
 
@@ -71,14 +74,25 @@ type ComponentEntity {
 """컴포넌트 종류"""
 enum ComponentType {
   """팝업"""
-  Popup
+  POPUP
 
   """섹션"""
-  Section
-  Inquiry
+  SECTION
+
+  """문의"""
+  INQUIRY
 
   """푸터"""
-  Footer
+  FOOTER
+}
+
+"""배경 종류"""
+enum BackgroundType {
+  """색상"""
+  COLOR
+
+  """이미지"""
+  IMAGE
 }
 
 type Query {
@@ -124,21 +138,6 @@ type Mutation {
 
     """컴포넌트 이름"""
     name: String!
-
-    """제목"""
-    title: String
-
-    """제목"""
-    titleStyle: String
-
-    """내용"""
-    content: String
-
-    """내용 스타일"""
-    contentStyle: String
-
-    """배경"""
-    background: String
   ): Boolean!
 
   """사이트 생성"""
