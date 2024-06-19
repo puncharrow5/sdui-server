@@ -31,6 +31,9 @@ type HeaderEntity {
   """배경 색상"""
   backgroundColor: String
 
+  """텍스트 크기"""
+  textSize: Int
+
   """텍스트 색상"""
   textColor: String
 
@@ -52,14 +55,8 @@ type ComponentEntity {
   """제목"""
   title: String
 
-  """제목 스타일"""
-  titleStyle: String
-
   """내용"""
   content: String
-
-  """내용 스타일"""
-  contentStyle: String
 
   """배경 종류"""
   backgroundType: BackgroundType
@@ -144,6 +141,9 @@ type Mutation {
   updateComponent(
     """ID"""
     id: Int!
+
+    """제목"""
+    title: String
   ): Boolean!
 
   """사이트 생성"""
