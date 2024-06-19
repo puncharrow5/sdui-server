@@ -12,6 +12,9 @@ export class HeaderEntity implements Header {
   @Field({ description: '배경 색상', nullable: true })
   backgroundColor: string | null;
 
+  @Field(() => Int, { description: '텍스트 크기', nullable: true })
+  textSize: number | null;
+
   @Field({ description: '텍스트 색상', nullable: true })
   textColor: string | null;
 
