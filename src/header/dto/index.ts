@@ -1,1 +1,1 @@
-export * from './set-header-style.args';
+export * from './update-header.args';
