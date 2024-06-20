@@ -1,10 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
-import { SetHeaderStyleArgs } from './dto';
+import { UpdateHeaderArgs } from './dto';
+import { FileService } from '@libs/file';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class HeaderService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private readonly fileService: FileService,
+    private readonly configService: ConfigService,
+  ) {}
 
   // 헤더 조회
   findHeader(siteId: number) {
@@ -13,19 +19,36 @@ export class HeaderService {
     });
   }
 
-  // 헤더 스타일 설정
-  async setHeaderStyle({
+  // 헤더 업데이트
+  async updateHeader({
     siteId,
     backgroundColor,
     textColor,
-  }: SetHeaderStyleArgs) {
+    textSize,
+    file,
+  }: UpdateHeaderArgs) {
+    let logo;
+
+    if (file) {
+      const bucket = this.configService.get('AWS_S3_BUCKET');
+      const uploadedFile = await this.fileService.uploadFile(
+        file.createReadStream(),
+        file.filename,
+        bucket,
+      );
+
+      logo = uploadedFile.Key;
+    }
+
     await this.prisma.header.upsert({
       where: {
         siteId,
       },
       create: {
+        logo,
         backgroundColor,
         textColor,
+        textSize,
         site: {
           connect: {
             id: siteId,
@@ -33,8 +56,10 @@ export class HeaderService {
         },
       },
       update: {
+        logo,
         backgroundColor,
         textColor,
+        textSize,
       },
     });
 

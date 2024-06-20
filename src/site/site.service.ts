@@ -36,8 +36,21 @@ export class SiteService {
     return site;
   }
 
+  // 사이트 목록 조회
+  async findManySite(adminId: number) {
+    return await this.prisma.site.findMany({
+      where: {
+        admins: {
+          some: {
+            adminId,
+          },
+        },
+      },
+    });
+  }
+
   // 사이트 생성
-  async createSite({ domain, email }: CreateSiteArgs, adminId: number) {
+  async createSite({ domain, name, email }: CreateSiteArgs, adminId: number) {
     await this.prisma.$transaction(async (tx) => {
       const checkDomain = await tx.site.findUnique({
         where: { domain },
@@ -57,13 +70,25 @@ export class SiteService {
 
       const site = await tx.site.create({
         data: {
+          name,
           email,
           domain,
         },
       });
 
       await tx.siteAdmin.create({
-        data: { adminId, siteId: site.id },
+        data: {
+          admin: {
+            connect: {
+              id: adminId,
+            },
+          },
+          site: {
+            connect: {
+              id: site.id,
+            },
+          },
+        },
       });
     });
 

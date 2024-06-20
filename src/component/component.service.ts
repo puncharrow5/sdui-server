@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { AddComponentArgs } from './dto';
+import { CreateComponentArgs, UpdateComponentArgs } from './dto';
 import { PrismaService } from 'nestjs-prisma';
 
 @Injectable()
@@ -16,31 +16,64 @@ export class ComponentService {
     });
   }
 
-  // 컴포넌트 추가
-  async addComponent({
-    siteId,
-    componentType,
-    name,
-    title,
-    titleStyle,
-    content,
-    contentStyle,
-    background,
-  }: AddComponentArgs) {
-    await this.prisma.component.create({
-      data: {
-        site: {
-          connect: {
-            id: siteId,
+  // 컴포넌트 생성
+  async createComponent({ siteId, componentType, name }: CreateComponentArgs) {
+    await this.prisma.$transaction(async (tx) => {
+      const component = await tx.component.create({
+        data: {
+          componentType,
+          name,
+          site: {
+            connect: {
+              id: siteId,
+            },
           },
         },
-        componentType,
-        name,
+      });
+
+      await tx.titleStyle.create({
+        data: {
+          component: {
+            connect: {
+              id: component.id,
+            },
+          },
+        },
+      });
+
+      await tx.contentStyle.create({
+        data: {
+          component: {
+            connect: {
+              id: component.id,
+            },
+          },
+        },
+      });
+    });
+
+    return true;
+  }
+
+  // 컴포넌트 수정
+  async updateComponent({
+    id,
+    title,
+    content,
+    background,
+    backgroundType,
+    titleStyle,
+    contentStyle,
+  }: UpdateComponentArgs) {
+    await this.prisma.component.update({
+      where: { id },
+      data: {
         title,
-        titleStyle,
         content,
-        contentStyle,
         background,
+        backgroundType,
+        titleStyle: { update: { ...titleStyle } },
+        contentStyle: { update: { ...contentStyle } },
       },
     });
 

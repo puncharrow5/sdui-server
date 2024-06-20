@@ -25,7 +25,9 @@
       "@libs/guard": ["libs/guard/src"],
       "@libs/guard/*": ["libs/guard/src/*"],
       "@libs/decorator": ["libs/decorator/src"],
-      "@libs/decorator/*": ["libs/decorator/src/*"]
+      "@libs/decorator/*": ["libs/decorator/src/*"],
+      "@libs/file": ["libs/file/src"],
+      "@libs/file/*": ["libs/file/src/*"]
     }
   }
 }

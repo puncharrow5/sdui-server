@@ -240,7 +240,7 @@ type Mutation {
   ): Boolean!
 
   """헤더 스타일 설정"""
-  setHeaderStyle(
+  updateHeader(
     """사이트 ID"""
     siteId: Int!
 
@@ -249,6 +249,12 @@ type Mutation {
 
     """텍스트 색상"""
     textColor: String
+
+    """텍스트 크기"""
+    textSize: Int
+
+    """첨부파일"""
+    file: Upload
   ): Boolean!
 }
 
@@ -291,3 +297,6 @@ input ContentStyleInput {
   """텍스트 색상"""
   textColor: String
 }
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
