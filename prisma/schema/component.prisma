@@ -30,6 +30,9 @@ model Component {
     background     String?
     backgroundType BackgroundType?
 
+    // 삭제 여부
+    isDelete Boolean @default(false)
+
     // 사이트
     siteId Int
     site   Site @relation(fields: [siteId], references: [id])

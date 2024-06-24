@@ -11,7 +11,11 @@ import {
   ContentStyleEntity,
   TitleStyleEntity,
 } from '@libs/entity';
-import { CreateComponentArgs, UpdateComponentArgs } from './dto';
+import {
+  CreateComponentArgs,
+  DeleteComponentArgs,
+  UpdateComponentArgs,
+} from './dto';
 import { StyleService } from 'src/style/style.service';
 
 @Resolver(() => ComponentEntity)
@@ -29,6 +33,11 @@ export class ComponentResolver {
   @Mutation(() => Boolean, { description: '컴포넌트 수정' })
   updateComponent(@Args() updateComponentArgs: UpdateComponentArgs) {
     return this.componentService.updateComponent(updateComponentArgs);
+  }
+
+  @Mutation(() => Boolean, { description: '컴포넌트 삭제' })
+  deleteComponent(@Args() deleteComponentArgs: DeleteComponentArgs) {
+    return this.componentService.deleteComponent(deleteComponentArgs);
   }
 
   @ResolveField('titleStyle', () => TitleStyleEntity, {

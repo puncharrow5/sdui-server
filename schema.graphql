@@ -67,6 +67,9 @@ type ComponentEntity {
   """배경"""
   background: String
 
+  """삭제 여부"""
+  isDelete: Boolean!
+
   """사이트 ID"""
   siteId: Int!
 
@@ -225,6 +228,12 @@ type Mutation {
 
     """내용 스타일"""
     contentStyle: ContentStyleInput
+  ): Boolean!
+
+  """컴포넌트 삭제"""
+  deleteComponent(
+    """ID"""
+    id: Int!
   ): Boolean!
 
   """사이트 생성"""

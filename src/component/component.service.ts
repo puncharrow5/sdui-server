@@ -1,5 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateComponentArgs, UpdateComponentArgs } from './dto';
+import {
+  CreateComponentArgs,
+  DeleteComponentArgs,
+  UpdateComponentArgs,
+} from './dto';
 import { PrismaService } from 'nestjs-prisma';
 
 @Injectable()
@@ -74,6 +78,20 @@ export class ComponentService {
         backgroundType,
         titleStyle: { update: { ...titleStyle } },
         contentStyle: { update: { ...contentStyle } },
+      },
+    });
+
+    return true;
+  }
+
+  // 컴포넌트 삭제
+  async deleteComponent({ id }: DeleteComponentArgs) {
+    await this.prisma.component.update({
+      where: {
+        id,
+      },
+      data: {
+        isDelete: true,
       },
     });
 

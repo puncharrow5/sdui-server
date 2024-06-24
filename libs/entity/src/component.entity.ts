@@ -24,6 +24,9 @@ export class ComponentEntity implements Component {
   @Field({ description: '배경', nullable: true })
   background: string | null;
 
+  @Field({ description: '삭제 여부' })
+  isDelete: boolean;
+
   @Field(() => Int, { description: '사이트 ID' })
   siteId: number;
 }
