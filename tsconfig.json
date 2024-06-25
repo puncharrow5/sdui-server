@@ -27,7 +27,9 @@
       "@libs/decorator": ["libs/decorator/src"],
       "@libs/decorator/*": ["libs/decorator/src/*"],
       "@libs/file": ["libs/file/src"],
-      "@libs/file/*": ["libs/file/src/*"]
+      "@libs/file/*": ["libs/file/src/*"],
+      "@libs/prisma": ["libs/prisma/src"],
+      "@libs/prisma/*": ["libs/prisma/src/*"]
     }
   }
 }
