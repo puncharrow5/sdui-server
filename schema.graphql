@@ -21,6 +21,9 @@ type SiteEntity {
 
   """헤더"""
   header: HeaderEntity
+
+  """푸터"""
+  footer: FooterEntity
 }
 
 """헤더"""
@@ -78,6 +81,9 @@ type ComponentEntity {
 
   """내용 스타일"""
   contentStyle: ContentStyleEntity
+
+  """자식 컴포넌트 목록"""
+  children: [ChildrenEntity!]
 }
 
 """컴포넌트 종류"""
@@ -90,9 +96,6 @@ enum ComponentType {
 
   """문의"""
   INQUIRY
-
-  """푸터"""
-  FOOTER
 }
 
 """배경 종류"""
@@ -102,6 +105,51 @@ enum BackgroundType {
 
   """이미지"""
   IMAGE
+}
+
+"""푸터"""
+type FooterEntity {
+  """ID"""
+  id: Int!
+
+  """푸터 타입"""
+  footerType: Int!
+
+  """로고"""
+  logo: String
+
+  """상단 내용"""
+  contentTop: String
+
+  """고객센터"""
+  helpCenter: String
+
+  """약관"""
+  terms: String
+
+  """하단 내용"""
+  contentBottom: String
+
+  """배경 색상"""
+  backgroundColor: String
+
+  """상단 패딩"""
+  paddingTop: String
+
+  """하단 패딩"""
+  paddingBottom: String
+
+  """텍스트 크기"""
+  textSize: Int
+
+  """텍스트 색상"""
+  textColor: String
+
+  """줄 높이"""
+  lineHeight: Int
+
+  """사이트 ID"""
+  siteId: Int!
 }
 
 """제목 스타일"""
@@ -153,6 +201,30 @@ type ContentStyleEntity {
 
   """텍스트 색상"""
   textColor: String
+
+  """컴포넌트 ID"""
+  componentId: Int!
+}
+
+"""자식 컴포넌트"""
+type ChildrenEntity {
+  """ID"""
+  id: Int!
+
+  """이름"""
+  name: String!
+
+  """이미지"""
+  image: String
+
+  """너비"""
+  width: String
+
+  """높이"""
+  height: String
+
+  """마진"""
+  margin: String
 
   """컴포넌트 ID"""
   componentId: Int!
@@ -236,6 +308,27 @@ type Mutation {
     id: Int!
   ): Boolean!
 
+  """자식 컴포넌트 생성"""
+  createChildren(
+    """컴포넌트 ID"""
+    componentId: Int!
+
+    """이름"""
+    name: String!
+
+    """image"""
+    image: String
+
+    """너비"""
+    width: String
+
+    """높이"""
+    height: String
+
+    """마진"""
+    margin: String
+  ): Boolean!
+
   """사이트 생성"""
   createSite(
     """도메인"""
@@ -248,7 +341,7 @@ type Mutation {
     email: String!
   ): Boolean!
 
-  """헤더 스타일 설정"""
+  """헤더 설정"""
   updateHeader(
     """사이트 ID"""
     siteId: Int!
@@ -261,6 +354,48 @@ type Mutation {
 
     """텍스트 크기"""
     textSize: Int
+
+    """첨부파일"""
+    file: Upload
+  ): Boolean!
+
+  """푸터 설정"""
+  updateFooter(
+    """사이트 ID"""
+    siteId: Int!
+
+    """푸터 타입"""
+    footerType: Int!
+
+    """상단 내용"""
+    contentTop: String
+
+    """고객센터"""
+    helpCenter: String
+
+    """약관"""
+    terms: String
+
+    """하단 내용"""
+    contentBottom: String
+
+    """배경 색상"""
+    backgroundColor: String
+
+    """상단 패딩"""
+    paddingTop: String
+
+    """하단 패딩"""
+    paddingBottom: String
+
+    """텍스트 크기"""
+    textSize: Int
+
+    """텍스트 색상"""
+    textColor: String
+
+    """줄 높이"""
+    lineHeight: Int
 
     """첨부파일"""
     file: Upload

@@ -7,7 +7,12 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import { SiteService } from './site.service';
-import { ComponentEntity, HeaderEntity, SiteEntity } from '@libs/entity';
+import {
+  ComponentEntity,
+  FooterEntity,
+  HeaderEntity,
+  SiteEntity,
+} from '@libs/entity';
 import {
   CreateSiteArgs,
   FindOneSiteByDomainArgs,
@@ -19,6 +24,7 @@ import { AdminAccessGuard } from '@libs/guard';
 import { AuthModel } from 'src/auth/auth.model';
 import { CurrentAuth } from '@libs/decorator';
 import { HeaderService } from 'src/header/header.service';
+import { FooterService } from 'src/footer/footer.service';
 
 @Resolver(() => SiteEntity)
 export class SiteResolver {
@@ -26,6 +32,7 @@ export class SiteResolver {
     private readonly siteService: SiteService,
     private readonly componentService: ComponentService,
     private readonly headerService: HeaderService,
+    private readonly footerService: FooterService,
   ) {}
 
   @Query(() => SiteEntity, { description: 'ID로 사이트 조회' })
@@ -77,5 +84,15 @@ export class SiteResolver {
     const { id } = site;
 
     return this.headerService.findHeader(id);
+  }
+
+  @ResolveField('footer', () => FooterEntity, {
+    description: '푸터',
+    nullable: true,
+  })
+  footer(@Parent() site: SiteEntity) {
+    const { id } = site;
+
+    return this.footerService.findFooter(id);
   }
 }

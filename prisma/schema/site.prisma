@@ -6,10 +6,13 @@ model Site {
     email  String
 
     // 헤더
-    Header Header?
+    header Header?
 
     // 컴포넌트
     compoents Component[]
+
+    // 푸터
+    footer Footer?
 
     // 관리자
     admins SiteAdmin[]

@@ -8,7 +8,6 @@ registerEnumType(ComponentType, {
     POPUP: { description: '팝업' },
     SECTION: { description: '섹션' },
     INQUIRY: { description: '문의' },
-    FOOTER: { description: '푸터' },
   },
 });
 
