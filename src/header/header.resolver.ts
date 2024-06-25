@@ -6,7 +6,7 @@ import { UpdateHeaderArgs } from './dto';
 export class HeaderResolver {
   constructor(private readonly headerService: HeaderService) {}
 
-  @Mutation(() => Boolean, { description: '헤더 스타일 설정' })
+  @Mutation(() => Boolean, { description: '헤더 설정' })
   updateHeader(@Args() updateHeaderArgs: UpdateHeaderArgs) {
     return this.headerService.updateHeader(updateHeaderArgs);
   }

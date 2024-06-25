@@ -33,5 +33,6 @@ export class UpdateHeaderArgs extends PickType(HeaderEntity, [
     description: '첨부파일',
     nullable: true,
   })
+  @IsOptional()
   file: FileUpload | null;
 }

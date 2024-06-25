@@ -20,6 +20,10 @@ const maxFiles = 220;
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {});
 
+  app.enableCors({
+    origin: true,
+    credentials: true,
+  });
   app.useStaticAssets(join(__dirname, '..', '..', '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', '..', '..', 'views'));
   app.setViewEngine('ejs');
@@ -34,10 +38,6 @@ async function bootstrap() {
       stopAtFirstError: true, // 에러가 여러개일 경우 첫번째 메세지만 보내게 설정
     }),
   );
-  app.enableCors({
-    origin: true,
-    credentials: true,
-  });
 
   if (process.env.NODE_ENV !== 'production') {
     const config = new DocumentBuilder()

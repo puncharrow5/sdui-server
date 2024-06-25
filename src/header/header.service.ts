@@ -30,10 +30,12 @@ export class HeaderService {
     let logo;
 
     if (file) {
+      const [logoFile] = await Promise.all([file]);
+
       const bucket = this.configService.get('AWS_S3_BUCKET');
       const uploadedFile = await this.fileService.uploadFile(
-        file.createReadStream(),
-        file.filename,
+        logoFile.createReadStream(),
+        logoFile.filename,
         bucket,
       );
 
