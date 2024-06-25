@@ -7,6 +7,7 @@ import {
 } from '@nestjs/graphql';
 import { ComponentService } from './component.service';
 import {
+  ChildrenEntity,
   ComponentEntity,
   ContentStyleEntity,
   TitleStyleEntity,
@@ -17,12 +18,14 @@ import {
   UpdateComponentArgs,
 } from './dto';
 import { StyleService } from 'src/style/style.service';
+import { ChildrenService } from 'src/children/children.service';
 
 @Resolver(() => ComponentEntity)
 export class ComponentResolver {
   constructor(
     private readonly componentService: ComponentService,
     private readonly styleService: StyleService,
+    private readonly childrenService: ChildrenService,
   ) {}
 
   @Mutation(() => Boolean, { description: '컴포넌트 생성' })
@@ -58,5 +61,15 @@ export class ComponentResolver {
     const { id } = component;
 
     return this.styleService.findContentStyle(id);
+  }
+
+  @ResolveField('children', () => [ChildrenEntity], {
+    description: '자식 컴포넌트 목록',
+    nullable: true,
+  })
+  children(@Parent() component: ComponentEntity) {
+    const { id } = component;
+
+    return this.childrenService.findManyChildren(id);
   }
 }

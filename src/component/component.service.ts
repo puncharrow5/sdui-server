@@ -13,7 +13,7 @@ export class ComponentService {
   // 컴포넌트 목록 조회
   findManyComponent(siteId: number) {
     return this.prisma.component.findMany({
-      where: { siteId },
+      where: { siteId, isDelete: false },
       orderBy: {
         id: 'asc',
       },

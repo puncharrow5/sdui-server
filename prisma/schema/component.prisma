@@ -3,7 +3,6 @@ enum ComponentType {
     POPUP
     SECTION
     INQUIRY
-    FOOTER
 }
 
 // 배경 종류
@@ -29,6 +28,9 @@ model Component {
     // 배경
     background     String?
     backgroundType BackgroundType?
+
+    // 자식 컴포넌트
+    childrens Children[]
 
     // 삭제 여부
     isDelete Boolean @default(false)

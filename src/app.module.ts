@@ -12,6 +12,8 @@ import { SiteModule } from './site/site.module';
 import { AuthModule } from './auth/auth.module';
 import { HeaderModule } from './header/header.module';
 import { StyleModule } from './style/style.module';
+import { FooterModule } from './footer/footer.module';
+import { ChildrenModule } from './children/children.module';
 
 @Module({
   imports: [
@@ -43,6 +45,8 @@ import { StyleModule } from './style/style.module';
     AuthModule,
     HeaderModule,
     StyleModule,
+    FooterModule,
+    ChildrenModule,
   ],
   controllers: [],
   providers: [],

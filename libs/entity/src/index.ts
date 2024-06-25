@@ -7,3 +7,4 @@ export * from './footer.entity';
 export * from './site-admin.entity';
 export * from './title-style.entity';
 export * from './content-style.entity';
+export * from './children.entity';
