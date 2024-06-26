@@ -1,6 +1,6 @@
 import { ChildrenEntity } from '@libs/entity';
 import { Int, Field, PickType, ArgsType } from '@nestjs/graphql';
-import { IsInt, IsOptional, IsString } from 'class-validator';
+import { IsInt } from 'class-validator';
 
 @ArgsType()
 export class CreateChildrenArgs extends PickType(ChildrenEntity, [

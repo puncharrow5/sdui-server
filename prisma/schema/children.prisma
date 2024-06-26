@@ -6,6 +6,9 @@ model Children {
     height String?
     margin String?
 
+    // 삭제 여부
+    isDelete Boolean @default(false)
+
     // 부모 컴포넌트
     componentId Int?       @unique
     component   Component? @relation(fields: [componentId], references: [id])

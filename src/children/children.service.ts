@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { FileService } from 'src/file/file.service';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from 'nestjs-prisma';
-import { CreateChildrenArgs } from './dto';
+import { CreateChildrenArgs, DeleteChildrenArgs } from './dto';
 
 @Injectable()
 export class ChildrenService {
@@ -15,7 +15,7 @@ export class ChildrenService {
   // 자식 컴포넌트 목록 조회
   findManyChildren(componentId: number) {
     return this.prisma.children.findMany({
-      where: { componentId },
+      where: { componentId, isDelete: false },
       orderBy: {
         id: 'asc',
       },
@@ -31,6 +31,20 @@ export class ChildrenService {
             id: componentId,
           },
         },
+      },
+    });
+
+    return true;
+  }
+
+  // 자식 컴포넌트 삭제
+  async deleteChildren({ id }: DeleteChildrenArgs) {
+    await this.prisma.children.update({
+      where: {
+        id,
+      },
+      data: {
+        isDelete: true,
       },
     });
 

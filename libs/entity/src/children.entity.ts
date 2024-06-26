@@ -21,6 +21,9 @@ export class ChildrenEntity implements Children {
   @Field({ description: '마진', nullable: true })
   margin: string | null;
 
+  @Field({ description: '삭제 여부' })
+  isDelete: boolean;
+
   @Field(() => Int, { description: '컴포넌트 ID' })
   componentId: number;
 }
