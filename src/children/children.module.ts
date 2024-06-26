@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ChildrenService } from './children.service';
 import { ChildrenResolver } from './children.resolver';
-import { FileModule } from '@libs/file';
+import { FileModule } from 'src/file/file.module';
 
 @Module({
   imports: [FileModule],

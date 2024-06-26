@@ -6,6 +6,8 @@ import { FileUpload, GraphQLUpload } from 'graphql-upload';
 @ArgsType()
 export class UpdateHeaderArgs extends PickType(HeaderEntity, [
   'siteId',
+  'logoSize',
+  'height',
   'backgroundColor',
   'textColor',
   'textSize',
@@ -13,6 +15,16 @@ export class UpdateHeaderArgs extends PickType(HeaderEntity, [
   @Field(() => Int, { description: '사이트 ID' })
   @IsInt({ message: '올바른 형식의 사이트 ID를 입력해주세요.' })
   siteId: number;
+
+  @Field({ description: '로고 사이즈', nullable: true })
+  @IsString({ message: '올바른 형식의 로고 사이즈를 입력해주세요.' })
+  @IsOptional()
+  logoSize: string | null;
+
+  @Field(() => Int, { description: '헤더 높이', nullable: true })
+  @IsInt({ message: '올바른 형식의 헤더 높이를 입력해주세요.' })
+  @IsOptional()
+  height: number | null;
 
   @Field({ description: '배경 색상', nullable: true })
   @IsString({ message: '올바른 형식의 배경 색상을 입력해주세요.' })

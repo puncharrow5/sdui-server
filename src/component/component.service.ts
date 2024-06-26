@@ -5,10 +5,16 @@ import {
   UpdateComponentArgs,
 } from './dto';
 import { PrismaService } from 'nestjs-prisma';
+import { FileService } from 'src/file/file.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class ComponentService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private readonly fileService: FileService,
+    private readonly configService: ConfigService,
+  ) {}
 
   // 컴포넌트 목록 조회
   findManyComponent(siteId: number) {
@@ -62,19 +68,36 @@ export class ComponentService {
   // 컴포넌트 수정
   async updateComponent({
     id,
+    name,
     title,
-    content,
-    background,
-    backgroundType,
     titleStyle,
+    content,
     contentStyle,
+    backgroundType,
+    background,
+    file,
   }: UpdateComponentArgs) {
+    let newBackground = background;
+
+    if (backgroundType === 'IMAGE' && file) {
+      const [backgroundFile] = await Promise.all([file]);
+
+      const bucket = this.configService.get('AWS_S3_BUCKET');
+      const uploadedFile = await this.fileService.uploadFile(
+        backgroundFile.createReadStream(),
+        backgroundFile.filename,
+        bucket,
+      );
+
+      newBackground = uploadedFile.Key;
+    }
+
     await this.prisma.component.update({
       where: { id },
       data: {
         title,
         content,
-        background,
+        background: newBackground,
         backgroundType,
         titleStyle: { update: { ...titleStyle } },
         contentStyle: { update: { ...contentStyle } },

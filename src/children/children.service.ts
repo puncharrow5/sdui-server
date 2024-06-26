@@ -1,5 +1,5 @@
-import { FileService } from '@libs/file';
 import { Injectable } from '@nestjs/common';
+import { FileService } from 'src/file/file.service';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from 'nestjs-prisma';
 import { CreateChildrenArgs } from './dto';
@@ -23,13 +23,7 @@ export class ChildrenService {
   }
 
   // 자식 컴포넌트 생성
-  async createChildren({
-    name,
-    image,
-    width,
-    height,
-    componentId,
-  }: CreateChildrenArgs) {
+  async createChildren({ componentId }: CreateChildrenArgs) {
     await this.prisma.children.create({
       data: {
         component: {
@@ -37,10 +31,6 @@ export class ChildrenService {
             id: componentId,
           },
         },
-        name,
-        image,
-        width,
-        height,
       },
     });
 

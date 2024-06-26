@@ -35,6 +35,7 @@ export class SiteResolver {
     private readonly footerService: FooterService,
   ) {}
 
+  @UseGuards(AdminAccessGuard)
   @Query(() => SiteEntity, { description: 'ID로 사이트 조회' })
   findOneSiteById(@Args() findOneSiteByIdArgs: FindOneSiteByIdArgs) {
     return this.siteService.findOneSiteById(findOneSiteByIdArgs);

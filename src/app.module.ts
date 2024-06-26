@@ -14,6 +14,7 @@ import { HeaderModule } from './header/header.module';
 import { StyleModule } from './style/style.module';
 import { FooterModule } from './footer/footer.module';
 import { ChildrenModule } from './children/children.module';
+import { FileModule } from './file/file.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { ChildrenModule } from './children/children.module';
     StyleModule,
     FooterModule,
     ChildrenModule,
+    FileModule,
   ],
   controllers: [],
   providers: [],

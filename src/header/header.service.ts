@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
 import { UpdateHeaderArgs } from './dto';
-import { FileService } from '@libs/file';
+import { FileService } from 'src/file/file.service';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
@@ -22,6 +22,8 @@ export class HeaderService {
   // 헤더 업데이트
   async updateHeader({
     siteId,
+    logoSize,
+    height,
     backgroundColor,
     textColor,
     textSize,
@@ -48,6 +50,8 @@ export class HeaderService {
       },
       create: {
         logo,
+        logoSize,
+        height,
         backgroundColor,
         textColor,
         textSize,
@@ -59,6 +63,8 @@ export class HeaderService {
       },
       update: {
         logo,
+        logoSize,
+        height,
         backgroundColor,
         textColor,
         textSize,

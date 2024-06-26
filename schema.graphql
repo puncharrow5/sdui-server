@@ -34,6 +34,12 @@ type HeaderEntity {
   """로고"""
   logo: String
 
+  """로고 사이즈"""
+  logoSize: String
+
+  """헤더 높이"""
+  height: Int
+
   """배경 색상"""
   backgroundColor: String
 
@@ -157,23 +163,17 @@ type TitleStyleEntity {
   """ID"""
   id: Int!
 
-  """위쪽 마진"""
-  marginTop: Int
-
-  """아래쪽 마진"""
-  marginBottom: Int
-
-  """오른쪽 마진"""
-  marginRight: Int
-
-  """왼쪽 마진"""
-  marginLeft: Int
+  """마진"""
+  margin: String
 
   """텍스트 크기"""
   textSize: Int
 
   """텍스트 색상"""
   textColor: String
+
+  """줄 높이"""
+  lineHeight: Int
 
   """컴포넌트 ID"""
   componentId: Float!
@@ -184,23 +184,17 @@ type ContentStyleEntity {
   """ID"""
   id: Int!
 
-  """위쪽 마진"""
-  marginTop: Int
-
-  """아래쪽 마진"""
-  marginBottom: Int
-
-  """오른쪽 마진"""
-  marginRight: Int
-
-  """왼쪽 마진"""
-  marginLeft: Int
+  """마진"""
+  margin: String
 
   """텍스트 크기"""
   textSize: Int
 
   """텍스트 색상"""
   textColor: String
+
+  """줄 높이"""
+  lineHeight: Int
 
   """컴포넌트 ID"""
   componentId: Int!
@@ -283,6 +277,9 @@ type Mutation {
     """ID"""
     id: Int!
 
+    """이름"""
+    name: String!
+
     """제목"""
     title: String
 
@@ -300,6 +297,9 @@ type Mutation {
 
     """내용 스타일"""
     contentStyle: ContentStyleInput
+
+    """첨부파일"""
+    file: Upload
   ): Boolean!
 
   """컴포넌트 삭제"""
@@ -312,21 +312,6 @@ type Mutation {
   createChildren(
     """컴포넌트 ID"""
     componentId: Int!
-
-    """이름"""
-    name: String!
-
-    """image"""
-    image: String
-
-    """너비"""
-    width: String
-
-    """높이"""
-    height: String
-
-    """마진"""
-    margin: String
   ): Boolean!
 
   """사이트 생성"""
@@ -345,6 +330,12 @@ type Mutation {
   updateHeader(
     """사이트 ID"""
     siteId: Int!
+
+    """로고 사이즈"""
+    logoSize: String
+
+    """헤더 높이"""
+    height: Int
 
     """배경 색상"""
     backgroundColor: String
@@ -403,43 +394,31 @@ type Mutation {
 }
 
 input TitleStyleInput {
-  """위쪽 마진"""
-  marginTop: Int
-
-  """아래쪽 마진"""
-  marginBottom: Int
-
-  """오른쪽 마진"""
-  marginRight: Int
-
-  """왼쪽 마진"""
-  marginLeft: Int
+  """마진"""
+  margin: String
 
   """텍스트 크기"""
   textSize: Int
 
   """텍스트 색상"""
   textColor: String
+
+  """줄 높이"""
+  lineHeight: Int
 }
 
 input ContentStyleInput {
-  """위쪽 마진"""
-  marginTop: Int
-
-  """아래쪽 마진"""
-  marginBottom: Int
-
-  """오른쪽 마진"""
-  marginRight: Int
-
-  """왼쪽 마진"""
-  marginLeft: Int
+  """마진"""
+  margin: String
 
   """텍스트 크기"""
   textSize: Int
 
   """텍스트 색상"""
   textColor: String
+
+  """줄 높이"""
+  lineHeight: Int
 }
 
 """The `Upload` scalar type represents a file upload."""

@@ -1,4 +1,4 @@
-import { FileService } from '@libs/file';
+import { FileService } from 'src/file/file.service';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from 'nestjs-prisma';
@@ -19,7 +19,7 @@ export class FooterService {
     });
   }
 
-  // 헤더 업데이트
+  // 푸터 업데이트
   async updateFooter({
     siteId,
     footerType,
@@ -38,10 +38,12 @@ export class FooterService {
     let logo;
 
     if (file) {
+      const [logoFile] = await Promise.all([file]);
+
       const bucket = this.configService.get('AWS_S3_BUCKET');
       const uploadedFile = await this.fileService.uploadFile(
-        file.createReadStream(),
-        file.filename,
+        logoFile.createReadStream(),
+        logoFile.filename,
         bucket,
       );
 

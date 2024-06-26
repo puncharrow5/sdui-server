@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { HeaderService } from './header.service';
 import { HeaderResolver } from './header.resolver';
-import { FileModule } from '@libs/file';
+import { FileModule } from 'src/file/file.module';
 
 @Module({
   imports: [FileModule],
