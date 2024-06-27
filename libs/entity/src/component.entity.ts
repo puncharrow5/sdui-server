@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { BackgroundType, Component, ComponentType } from '@prisma/client';
+import { Component, ComponentType } from '@prisma/client';
 
 @ObjectType({ description: '컴포넌트' })
 export class ComponentEntity implements Component {
@@ -18,11 +18,11 @@ export class ComponentEntity implements Component {
   @Field({ description: '내용', nullable: true })
   content: string | null;
 
-  @Field(() => BackgroundType, { description: '배경 종류', nullable: true })
-  backgroundType: BackgroundType | null;
+  // @Field(() => BackgroundType, { description: '배경 종류', nullable: true })
+  // backgroundType: BackgroundType | null;
 
-  @Field({ description: '배경', nullable: true })
-  background: string | null;
+  // @Field({ description: '배경', nullable: true })
+  // background: string | null;
 
   @Field({ description: '삭제 여부' })
   isDelete: boolean;

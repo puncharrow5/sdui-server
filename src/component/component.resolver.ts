@@ -7,8 +7,9 @@ import {
 } from '@nestjs/graphql';
 import { ComponentService } from './component.service';
 import {
-  ChildrenEntity,
+  ChildEntity,
   ComponentEntity,
+  ComponentStyleEntity,
   ContentStyleEntity,
   TitleStyleEntity,
 } from '@libs/entity';
@@ -18,7 +19,7 @@ import {
   UpdateComponentArgs,
 } from './dto';
 import { StyleService } from 'src/style/style.service';
-import { ChildrenService } from 'src/children/children.service';
+import { ChildService } from 'src/child/child.service';
 import { UseGuards } from '@nestjs/common';
 import { AdminAccessGuard } from '@libs/guard';
 
@@ -27,7 +28,7 @@ export class ComponentResolver {
   constructor(
     private readonly componentService: ComponentService,
     private readonly styleService: StyleService,
-    private readonly childrenService: ChildrenService,
+    private readonly childService: ChildService,
   ) {}
 
   @UseGuards(AdminAccessGuard)
@@ -58,6 +59,16 @@ export class ComponentResolver {
     return this.styleService.findTitleStyle(id);
   }
 
+  @ResolveField('componentStyle', () => ComponentStyleEntity, {
+    description: '컴포넌트 스타일',
+    nullable: true,
+  })
+  componentStyle(@Parent() component: ComponentEntity) {
+    const { id } = component;
+
+    return this.styleService.findComponentStyle(id);
+  }
+
   @ResolveField('contentStyle', () => ContentStyleEntity, {
     description: '내용 스타일',
     nullable: true,
@@ -68,13 +79,13 @@ export class ComponentResolver {
     return this.styleService.findContentStyle(id);
   }
 
-  @ResolveField('children', () => [ChildrenEntity], {
+  @ResolveField('children', () => [ChildEntity], {
     description: '자식 컴포넌트 목록',
     nullable: true,
   })
   children(@Parent() component: ComponentEntity) {
     const { id } = component;
 
-    return this.childrenService.findManyChildren(id);
+    return this.childService.findManyChild(id);
   }
 }

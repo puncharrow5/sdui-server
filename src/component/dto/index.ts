@@ -1,3 +1,4 @@
+export * from './component-style.input';
 export * from './title-style.input';
 export * from './content-style.input';
 export * from './find-many-component.args';

@@ -12,6 +12,7 @@ import { TitleStyleInput } from './title-style.input';
 import { ContentStyleInput } from './content-style.input';
 import { BackgroundType } from '@prisma/client';
 import { FileUpload, GraphQLUpload } from 'graphql-upload';
+import { ComponentStyleInput } from './component-style.input';
 
 @ArgsType()
 export class UpdateComponentArgs extends PickType(ComponentEntity, [
@@ -19,8 +20,6 @@ export class UpdateComponentArgs extends PickType(ComponentEntity, [
   'name',
   'title',
   'content',
-  'backgroundType',
-  'background',
 ]) {
   @Field(() => Int, { description: 'ID' })
   @IsInt({ message: '올바른 형식의 컴포넌트 ID를 입력해주세요.' })
@@ -40,17 +39,14 @@ export class UpdateComponentArgs extends PickType(ComponentEntity, [
   @IsOptional()
   content: string | null;
 
-  @Field({ description: '배경', nullable: true })
-  @IsString({ message: '올바른 형식의 배경을 입력해주세요.' })
-  @IsOptional()
-  background: string | null;
-
-  @Field(() => BackgroundType, { description: '배경 종류', nullable: true })
-  @IsEnum(BackgroundType, {
-    message: '올바른 형식의 배경 종류를 입력해주세요.',
+  @Field(() => ComponentStyleInput, {
+    description: '컴포넌트 스타일',
+    nullable: true,
   })
+  @ValidateNested({ each: true })
+  @Type(() => ComponentStyleInput)
   @IsOptional()
-  backgroundType: BackgroundType | null;
+  componentStyle: ComponentStyleInput | null;
 
   @Field(() => TitleStyleInput, { description: '제목 스타일', nullable: true })
   @ValidateNested({ each: true })

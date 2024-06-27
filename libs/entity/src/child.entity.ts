@@ -1,13 +1,10 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Children } from '@prisma/client';
+import { Child } from '@prisma/client';
 
 @ObjectType({ description: '자식 컴포넌트' })
-export class ChildrenEntity implements Children {
+export class ChildEntity implements Child {
   @Field(() => Int, { description: 'ID' })
   id: number;
-
-  @Field({ description: '이름' })
-  name: string;
 
   @Field({ description: '이미지', nullable: true })
   image: string | null;

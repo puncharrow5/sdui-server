@@ -13,7 +13,7 @@ import { AuthModule } from './auth/auth.module';
 import { HeaderModule } from './header/header.module';
 import { StyleModule } from './style/style.module';
 import { FooterModule } from './footer/footer.module';
-import { ChildrenModule } from './children/children.module';
+import { ChildModule } from './child/child.module';
 import { FileModule } from './file/file.module';
 
 @Module({
@@ -47,7 +47,7 @@ import { FileModule } from './file/file.module';
     HeaderModule,
     StyleModule,
     FooterModule,
-    ChildrenModule,
+    ChildModule,
     FileModule,
   ],
   controllers: [],

@@ -5,6 +5,13 @@ import { PrismaService } from 'nestjs-prisma';
 export class StyleService {
   constructor(private prisma: PrismaService) {}
 
+  // 컴포넌트 스타일 조회
+  findComponentStyle(componentId: number) {
+    return this.prisma.componentStyle.findUnique({
+      where: { componentId },
+    });
+  }
+
   // 제목 스타일 조회
   findTitleStyle(componentId: number) {
     return this.prisma.titleStyle.findUnique({

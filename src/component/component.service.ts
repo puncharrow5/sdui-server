@@ -41,6 +41,16 @@ export class ComponentService {
         },
       });
 
+      await tx.componentStyle.create({
+        data: {
+          component: {
+            connect: {
+              id: component.id,
+            },
+          },
+        },
+      });
+
       await tx.titleStyle.create({
         data: {
           component: {
@@ -69,17 +79,16 @@ export class ComponentService {
   async updateComponent({
     id,
     name,
+    componentStyle,
     title,
     titleStyle,
     content,
     contentStyle,
-    backgroundType,
-    background,
     file,
   }: UpdateComponentArgs) {
-    let newBackground = background;
+    let newBackground = componentStyle.background;
 
-    if (backgroundType === 'IMAGE' && file) {
+    if (componentStyle.backgroundType === 'IMAGE' && file) {
       const [backgroundFile] = await Promise.all([file]);
 
       const bucket = this.configService.get('AWS_S3_BUCKET');
@@ -95,10 +104,12 @@ export class ComponentService {
     await this.prisma.component.update({
       where: { id },
       data: {
+        name,
         title,
         content,
-        background: newBackground,
-        backgroundType,
+        componentStyle: {
+          update: { ...componentStyle, background: newBackground },
+        },
         titleStyle: { update: { ...titleStyle } },
         contentStyle: { update: { ...contentStyle } },
       },
