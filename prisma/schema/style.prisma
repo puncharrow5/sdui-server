@@ -18,6 +18,20 @@ model ComponentStyle {
     component   Component @relation(fields: [componentId], references: [id])
 }
 
+// 모바일 컴포넌트 스타일
+model ComponentMobileStyle {
+    id             Int             @id @default(autoincrement())
+    height         String?
+    padding        String?
+    gap            String?
+    background     String?
+    backgroundType BackgroundType?
+
+    // 컴포넌트
+    componentId Int       @unique
+    component   Component @relation(fields: [componentId], references: [id])
+}
+
 // 제목 스타일
 model TitleStyle {
     id         Int     @id @default(autoincrement())

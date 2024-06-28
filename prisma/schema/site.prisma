@@ -6,7 +6,8 @@ model Site {
     email  String
 
     // 헤더
-    header Header?
+    header       Header?
+    mobileHeader MobileHeader?
 
     // 컴포넌트
     compoents Component[]

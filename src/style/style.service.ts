@@ -12,6 +12,13 @@ export class StyleService {
     });
   }
 
+  // 컴포넌트 모바일 스타일 조회
+  findComponentMobileStyle(componentId: number) {
+    return this.prisma.componentMobileStyle.findUnique({
+      where: { componentId },
+    });
+  }
+
   // 제목 스타일 조회
   findTitleStyle(componentId: number) {
     return this.prisma.titleStyle.findUnique({

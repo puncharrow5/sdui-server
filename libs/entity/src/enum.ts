@@ -1,5 +1,5 @@
 import { registerEnumType } from '@nestjs/graphql';
-import { BackgroundType, ComponentType } from '@prisma/client';
+import { BackgroundType, ChildType, ComponentType } from '@prisma/client';
 
 registerEnumType(ComponentType, {
   name: 'ComponentType',
@@ -16,6 +16,15 @@ registerEnumType(BackgroundType, {
   description: '배경 종류',
   valuesMap: {
     COLOR: { description: '색상' },
+    IMAGE: { description: '이미지' },
+  },
+});
+
+registerEnumType(ChildType, {
+  name: 'ChildType',
+  description: '자식 컴포넌트 종류',
+  valuesMap: {
+    BOX: { description: '박스' },
     IMAGE: { description: '이미지' },
   },
 });

@@ -9,6 +9,7 @@ import { ComponentService } from './component.service';
 import {
   ChildEntity,
   ComponentEntity,
+  ComponentMobileStyleEntity,
   ComponentStyleEntity,
   ContentStyleEntity,
   TitleStyleEntity,
@@ -67,6 +68,16 @@ export class ComponentResolver {
     const { id } = component;
 
     return this.styleService.findComponentStyle(id);
+  }
+
+  @ResolveField('componentMobileStyle', () => ComponentMobileStyleEntity, {
+    description: '컴포넌트 모바일 스타일',
+    nullable: true,
+  })
+  componentMobileStyle(@Parent() component: ComponentEntity) {
+    const { id } = component;
+
+    return this.styleService.findComponentMobileStyle(id);
   }
 
   @ResolveField('contentStyle', () => ContentStyleEntity, {

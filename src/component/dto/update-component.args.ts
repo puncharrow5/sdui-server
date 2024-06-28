@@ -10,9 +10,9 @@ import {
 import { Type } from 'class-transformer';
 import { TitleStyleInput } from './title-style.input';
 import { ContentStyleInput } from './content-style.input';
-import { BackgroundType } from '@prisma/client';
 import { FileUpload, GraphQLUpload } from 'graphql-upload';
 import { ComponentStyleInput } from './component-style.input';
+import { ComponentMobileStyleInput } from './component-mobile-style.input';
 
 @ArgsType()
 export class UpdateComponentArgs extends PickType(ComponentEntity, [
@@ -48,6 +48,15 @@ export class UpdateComponentArgs extends PickType(ComponentEntity, [
   @IsOptional()
   componentStyle: ComponentStyleInput | null;
 
+  @Field(() => ComponentMobileStyleInput, {
+    description: '컴포넌트 모바일 스타일',
+    nullable: true,
+  })
+  @ValidateNested({ each: true })
+  @Type(() => ComponentMobileStyleInput)
+  @IsOptional()
+  componentMobileStyle: ComponentMobileStyleInput | null;
+
   @Field(() => TitleStyleInput, { description: '제목 스타일', nullable: true })
   @ValidateNested({ each: true })
   @Type(() => TitleStyleInput)
@@ -68,5 +77,12 @@ export class UpdateComponentArgs extends PickType(ComponentEntity, [
     nullable: true,
   })
   @IsOptional()
-  file: FileUpload | null;
+  imageFile: FileUpload | null;
+
+  @Field(() => GraphQLUpload, {
+    description: '첨부파일',
+    nullable: true,
+  })
+  @IsOptional()
+  mobileImageFile: FileUpload | null;
 }

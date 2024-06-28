@@ -41,35 +41,22 @@ export class ComponentService {
         },
       });
 
-      await tx.componentStyle.create({
-        data: {
-          component: {
-            connect: {
-              id: component.id,
+      const createStyleEntity = async (entity) => {
+        await entity.create({
+          data: {
+            component: {
+              connect: {
+                id: component.id,
+              },
             },
           },
-        },
-      });
+        });
+      };
 
-      await tx.titleStyle.create({
-        data: {
-          component: {
-            connect: {
-              id: component.id,
-            },
-          },
-        },
-      });
-
-      await tx.contentStyle.create({
-        data: {
-          component: {
-            connect: {
-              id: component.id,
-            },
-          },
-        },
-      });
+      await createStyleEntity(tx.componentStyle);
+      await createStyleEntity(tx.componentMobileStyle);
+      await createStyleEntity(tx.titleStyle);
+      await createStyleEntity(tx.contentStyle);
     });
 
     return true;
@@ -80,16 +67,19 @@ export class ComponentService {
     id,
     name,
     componentStyle,
+    componentMobileStyle,
     title,
     titleStyle,
     content,
     contentStyle,
-    file,
+    imageFile,
+    mobileImageFile,
   }: UpdateComponentArgs) {
-    let newBackground = componentStyle.background;
+    let newBackground = componentStyle?.background;
+    let newMobileBackground = componentMobileStyle?.background;
 
-    if (componentStyle.backgroundType === 'IMAGE' && file) {
-      const [backgroundFile] = await Promise.all([file]);
+    if (componentStyle?.backgroundType === 'IMAGE' && imageFile) {
+      const [backgroundFile] = await Promise.all([imageFile]);
 
       const bucket = this.configService.get('AWS_S3_BUCKET');
       const uploadedFile = await this.fileService.uploadFile(
@@ -101,6 +91,19 @@ export class ComponentService {
       newBackground = uploadedFile.Key;
     }
 
+    if (componentMobileStyle?.backgroundType === 'IMAGE' && mobileImageFile) {
+      const [backgroundFile] = await Promise.all([mobileImageFile]);
+
+      const bucket = this.configService.get('AWS_S3_BUCKET');
+      const uploadedFile = await this.fileService.uploadFile(
+        backgroundFile.createReadStream(),
+        backgroundFile.filename,
+        bucket,
+      );
+
+      newMobileBackground = uploadedFile.Key;
+    }
+
     await this.prisma.component.update({
       where: { id },
       data: {
@@ -109,6 +112,9 @@ export class ComponentService {
         content,
         componentStyle: {
           update: { ...componentStyle, background: newBackground },
+        },
+        componentMobileStyle: {
+          update: { ...componentMobileStyle, background: newMobileBackground },
         },
         titleStyle: { update: { ...titleStyle } },
         contentStyle: { update: { ...contentStyle } },

@@ -23,10 +23,11 @@ export class ChildService {
   }
 
   // 자식 컴포넌트 생성
-  async createChild({ componentId }: CreateChildArgs) {
+  async createChild({ componentId, childType }: CreateChildArgs) {
     await this.prisma.$transaction(async (tx) => {
       const child = await tx.child.create({
         data: {
+          childType,
           component: {
             connect: {
               id: componentId,
@@ -44,9 +45,9 @@ export class ChildService {
           },
         },
       });
-
-      return true;
     });
+
+    return true;
   }
 
   // 자식 컴포넌트 업데이트

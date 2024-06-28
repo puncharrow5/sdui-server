@@ -1,8 +1,8 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { BackgroundType, ComponentStyle } from '@prisma/client';
+import { BackgroundType, ComponentMobileStyle } from '@prisma/client';
 
-@ObjectType({ description: '컴포넌트 스타일' })
-export class ComponentStyleEntity implements ComponentStyle {
+@ObjectType({ description: '컴포넌트 모바일 스타일' })
+export class ComponentMobileStyleEntity implements ComponentMobileStyle {
   @Field(() => Int, { description: 'ID' })
   id: number;
 

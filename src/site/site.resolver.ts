@@ -11,6 +11,7 @@ import {
   ComponentEntity,
   FooterEntity,
   HeaderEntity,
+  MobileHeaderEntity,
   SiteEntity,
 } from '@libs/entity';
 import {
@@ -85,6 +86,16 @@ export class SiteResolver {
     const { id } = site;
 
     return this.headerService.findHeader(id);
+  }
+
+  @ResolveField('mobileHeader', () => MobileHeaderEntity, {
+    description: '모바일 헤더',
+    nullable: true,
+  })
+  mobileHeader(@Parent() site: SiteEntity) {
+    const { id } = site;
+
+    return this.headerService.findMobileHeader(id);
   }
 
   @ResolveField('footer', () => FooterEntity, {
