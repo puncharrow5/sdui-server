@@ -6,17 +6,11 @@ export class ChildEntity implements Child {
   @Field(() => Int, { description: 'ID' })
   id: number;
 
-  @Field({ description: '이미지', nullable: true })
-  image: string | null;
+  @Field({ description: '제목', nullable: true })
+  title: string | null;
 
-  @Field({ description: '너비', nullable: true })
-  width: string | null;
-
-  @Field({ description: '높이', nullable: true })
-  height: string | null;
-
-  @Field({ description: '마진', nullable: true })
-  margin: string | null;
+  @Field({ description: '내용', nullable: true })
+  content: string | null;
 
   @Field({ description: '삭제 여부' })
   isDelete: boolean;

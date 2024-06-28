@@ -9,3 +9,4 @@ export * from './component-style.entity';
 export * from './title-style.entity';
 export * from './content-style.entity';
 export * from './child.entity';
+export * from './child-style.entity';

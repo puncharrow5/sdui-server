@@ -25,4 +25,11 @@ export class StyleService {
       where: { componentId },
     });
   }
+
+  // 자식 컴포넌트 스타일 조회
+  findChildStyle(childId: number) {
+    return this.prisma.childStyle.findUnique({
+      where: { childId },
+    });
+  }
 }

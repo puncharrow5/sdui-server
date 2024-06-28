@@ -21,6 +21,6 @@ export class ComponentStyleEntity implements ComponentStyle {
   @Field(() => BackgroundType, { description: '배경 종류', nullable: true })
   backgroundType: BackgroundType | null;
 
-  @Field(() => Int, { description: '사이트 ID' })
+  @Field(() => Int, { description: '컴포넌트 ID' })
   componentId: number;
 }

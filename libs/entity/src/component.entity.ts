@@ -18,12 +18,6 @@ export class ComponentEntity implements Component {
   @Field({ description: '내용', nullable: true })
   content: string | null;
 
-  // @Field(() => BackgroundType, { description: '배경 종류', nullable: true })
-  // backgroundType: BackgroundType | null;
-
-  // @Field({ description: '배경', nullable: true })
-  // background: string | null;
-
   @Field({ description: '삭제 여부' })
   isDelete: boolean;
 

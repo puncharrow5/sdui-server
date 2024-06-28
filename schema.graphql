@@ -166,7 +166,7 @@ type ComponentStyleEntity {
   """배경 종류"""
   backgroundType: BackgroundType
 
-  """사이트 ID"""
+  """컴포넌트 ID"""
   componentId: Int!
 }
 
@@ -226,8 +226,26 @@ type ChildEntity {
   """ID"""
   id: Int!
 
-  """이미지"""
-  image: String
+  """제목"""
+  title: String
+
+  """내용"""
+  content: String
+
+  """삭제 여부"""
+  isDelete: Boolean!
+
+  """컴포넌트 ID"""
+  componentId: Int!
+
+  """자식 컴포넌트 스타일"""
+  childStyle: ChildStyleEntity
+}
+
+"""자식 컴포넌트 스타일"""
+type ChildStyleEntity {
+  """ID"""
+  id: Int!
 
   """너비"""
   width: String
@@ -238,11 +256,23 @@ type ChildEntity {
   """마진"""
   margin: String
 
-  """삭제 여부"""
-  isDelete: Boolean!
+  """패딩"""
+  padding: String
 
-  """컴포넌트 ID"""
-  componentId: Int!
+  """배경"""
+  background: String
+
+  """배경 종류"""
+  backgroundType: BackgroundType
+
+  """테두리"""
+  border: String
+
+  """테두리 곡률"""
+  borderRadius: String
+
+  """자식컴포넌트 ID"""
+  childId: Int!
 }
 
 type Query {
@@ -330,6 +360,24 @@ type Mutation {
   createChild(
     """컴포넌트 ID"""
     componentId: Int!
+  ): Boolean!
+
+  """자식 컴포넌트 업데이트"""
+  updateChild(
+    """ID"""
+    id: Int!
+
+    """제목"""
+    title: String
+
+    """내용"""
+    content: String
+
+    """스타일"""
+    childStyle: ChildStyleInput
+
+    """첨부파일"""
+    file: Upload
   ): Boolean!
 
   """자식 컴포넌트 삭제"""
@@ -464,3 +512,29 @@ input ContentStyleInput {
 
 """The `Upload` scalar type represents a file upload."""
 scalar Upload
+
+input ChildStyleInput {
+  """너비"""
+  width: String
+
+  """높이"""
+  height: String
+
+  """마진"""
+  margin: String
+
+  """패딩"""
+  padding: String
+
+  """배경"""
+  background: String
+
+  """배경 종류"""
+  backgroundType: BackgroundType
+
+  """테두리"""
+  border: String
+
+  """테두리 곡률"""
+  borderRadius: String
+}
