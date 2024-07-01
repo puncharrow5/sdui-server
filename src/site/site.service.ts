@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
 import {
+  ConnectSiteArgs,
   CreateSiteArgs,
   FindOneSiteByDomainArgs,
   FindOneSiteByIdArgs,
@@ -90,6 +91,47 @@ export class SiteService {
           },
         },
       });
+    });
+
+    return true;
+  }
+
+  // 사이트 연결
+  async connectSite({ domain }: ConnectSiteArgs, adminId: number) {
+    const site = await this.prisma.site.findUnique({
+      where: {
+        domain,
+      },
+    });
+    if (!site) {
+      throw new BadRequestException('존재하지 않는 도메인입니다.');
+    }
+
+    const checkConnect = await this.prisma.siteAdmin.findUnique({
+      where: {
+        siteId_adminId: {
+          adminId,
+          siteId: site.id,
+        },
+      },
+    });
+    if (checkConnect) {
+      throw new BadRequestException('이미 해당 계정에 등록된 사이트입니다.');
+    }
+
+    await this.prisma.siteAdmin.create({
+      data: {
+        admin: {
+          connect: {
+            id: adminId,
+          },
+        },
+        site: {
+          connect: {
+            id: site.id,
+          },
+        },
+      },
     });
 
     return true;

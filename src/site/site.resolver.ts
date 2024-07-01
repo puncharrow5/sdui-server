@@ -15,6 +15,7 @@ import {
   SiteEntity,
 } from '@libs/entity';
 import {
+  ConnectSiteArgs,
   CreateSiteArgs,
   FindOneSiteByDomainArgs,
   FindOneSiteByIdArgs,
@@ -66,6 +67,17 @@ export class SiteResolver {
     const adminId = auth.id;
 
     return this.siteService.createSite(createSiteArgs, adminId);
+  }
+
+  @UseGuards(AdminAccessGuard)
+  @Mutation(() => Boolean, { description: '사이트 연결' })
+  connectSite(
+    @Args() connectSiteArgs: ConnectSiteArgs,
+    @CurrentAuth() auth: AuthModel,
+  ) {
+    const adminId = auth.id;
+
+    return this.siteService.connectSite(connectSiteArgs, adminId);
   }
 
   @ResolveField('components', () => [ComponentEntity], {
