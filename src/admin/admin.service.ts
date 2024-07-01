@@ -14,20 +14,14 @@ export class AdminService {
     httpOnly: true,
     path: '/',
   };
-
   private adminCookieOption: CookieOptions = {
     httpOnly: false,
     path: '/',
   };
-
   constructor(
     private prisma: PrismaService,
     private readonly jwtService: JwtService,
   ) {}
-
-  findOne(id: number) {
-    return `This action returns a #${id} admin`;
-  }
 
   // AccessToken 발급
   createAccessToken(email: string, id: number) {
@@ -94,10 +88,15 @@ export class AdminService {
     res
       .cookie('accessToken', accessToken, this.tokenCookieOption)
       .cookie('admin', JSON.stringify(adminInfo), this.adminCookieOption);
-    //  .cookie('refreshToken', refreshToken, this.tokenCookieOption)
-    //  .cookie('user', JSON.stringify(userInfo), this.userCookieOption);
 
-    return accessToken;
+    return true;
+  }
+
+  // 로그아웃
+  async logout(res: Response) {
+    res.clearCookie('accessToken').clearCookie('admin');
+
+    return true;
   }
 
   // 관리자 ID로 관리자 조회

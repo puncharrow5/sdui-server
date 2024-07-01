@@ -34,11 +34,14 @@ model ComponentMobileStyle {
 
 // 제목 스타일
 model TitleStyle {
-    id         Int     @id @default(autoincrement())
-    margin     String?
-    textSize   Int?
-    textColor  String?
-    lineHeight Int?
+    id               Int     @id @default(autoincrement())
+    margin           String?
+    mobileMargin     String?
+    size             Int?
+    mobileSize       Int?
+    lineHeight       Int?
+    mobileLineHeight Int?
+    color            String?
 
     // 컴포넌트
     componentId Int       @unique
@@ -47,11 +50,14 @@ model TitleStyle {
 
 // 내용 스타일
 model ContentStyle {
-    id         Int     @id @default(autoincrement())
-    margin     String?
-    textSize   Int?
-    textColor  String?
-    lineHeight Int?
+    id               Int     @id @default(autoincrement())
+    margin           String?
+    mobileMargin     String?
+    size             Int?
+    mobileSize       Int?
+    lineHeight       Int?
+    mobileLineHeight Int?
+    color            String?
 
     // 컴포넌트
     componentId Int       @unique

@@ -259,14 +259,23 @@ type TitleStyleEntity {
   """마진"""
   margin: String
 
-  """텍스트 크기"""
-  textSize: Int
+  """모바일 마진"""
+  mobileMargin: String
 
-  """텍스트 색상"""
-  textColor: String
+  """텍스트 크기"""
+  size: Int
+
+  """모바일 텍스트 크기"""
+  mobileSize: Int
 
   """줄 높이"""
   lineHeight: Int
+
+  """모바일 줄 높이"""
+  mobileLineHeight: Int
+
+  """텍스트 색상"""
+  color: String
 
   """컴포넌트 ID"""
   componentId: Float!
@@ -280,14 +289,23 @@ type ContentStyleEntity {
   """마진"""
   margin: String
 
-  """텍스트 크기"""
-  textSize: Int
+  """모바일 마진"""
+  mobileMargin: String
 
-  """텍스트 색상"""
-  textColor: String
+  """텍스트 크기"""
+  size: Int
+
+  """모바일 텍스트 크기"""
+  mobileSize: Int
 
   """줄 높이"""
   lineHeight: Int
+
+  """모바일 줄 높이"""
+  mobileLineHeight: Int
+
+  """텍스트 색상"""
+  color: String
 
   """컴포넌트 ID"""
   componentId: Int!
@@ -393,7 +411,10 @@ type Mutation {
 
     """비밀번호"""
     password: String!
-  ): String!
+  ): Boolean!
+
+  """로그아웃"""
+  logout: Boolean!
 
   """컴포넌트 생성"""
   createComponent(
@@ -489,6 +510,12 @@ type Mutation {
 
     """이메일"""
     email: String!
+  ): Boolean!
+
+  """사이트 연결"""
+  connectSite(
+    """도메인"""
+    domain: String!
   ): Boolean!
 
   """헤더 설정"""
@@ -635,28 +662,46 @@ input TitleStyleInput {
   """마진"""
   margin: String
 
-  """텍스트 크기"""
-  textSize: Int
+  """모바일 마진"""
+  mobileMargin: String
 
-  """텍스트 색상"""
-  textColor: String
+  """텍스트 크기"""
+  size: Int
+
+  """모바일 텍스트 크기"""
+  mobileSize: Int
 
   """줄 높이"""
   lineHeight: Int
+
+  """모바일 줄 높이"""
+  mobileLineHeight: Int
+
+  """텍스트 색상"""
+  color: String
 }
 
 input ContentStyleInput {
   """마진"""
   margin: String
 
-  """텍스트 크기"""
-  textSize: Int
+  """모바일 마진"""
+  mobileMargin: String
 
-  """텍스트 색상"""
-  textColor: String
+  """텍스트 크기"""
+  size: Int
+
+  """모바일 텍스트 크기"""
+  mobileSize: Int
 
   """줄 높이"""
   lineHeight: Int
+
+  """모바일 줄 높이"""
+  mobileLineHeight: Int
+
+  """텍스트 색상"""
+  color: String
 }
 
 """The `Upload` scalar type represents a file upload."""

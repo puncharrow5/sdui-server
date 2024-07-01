@@ -12,11 +12,16 @@ export class AdminResolver {
     return this.adminService.createAdmin(createAdminArgs);
   }
 
-  @Mutation(() => String, { description: '로그인' })
+  @Mutation(() => Boolean, { description: '로그인' })
   async login(
     @Args() loginWithEmailArgs: LoginWithEmailArgs,
     @Context() { res },
   ) {
     return await this.adminService.loginWithEmail(loginWithEmailArgs, res);
+  }
+
+  @Mutation(() => Boolean, { description: '로그아웃' })
+  async logout(@Context() { res }) {
+    return await this.adminService.logout(res);
   }
 }
