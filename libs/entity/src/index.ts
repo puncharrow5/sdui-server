@@ -12,3 +12,5 @@ export * from './title-style.entity';
 export * from './content-style.entity';
 export * from './child.entity';
 export * from './child-style.entity';
+export * from './mobile-child.entity';
+export * from './mobile-child-style.entity';

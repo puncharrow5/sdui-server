@@ -1,12 +1,6 @@
 import { Int, Field, PickType, ArgsType } from '@nestjs/graphql';
 import { ComponentEntity } from '@libs/entity';
-import {
-  IsEnum,
-  IsInt,
-  IsOptional,
-  IsString,
-  ValidateNested,
-} from 'class-validator';
+import { IsInt, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 import { TitleStyleInput } from './title-style.input';
 import { ContentStyleInput } from './content-style.input';
@@ -19,7 +13,9 @@ export class UpdateComponentArgs extends PickType(ComponentEntity, [
   'id',
   'name',
   'title',
+  'mobileTitle',
   'content',
+  'mobileContent',
 ]) {
   @Field(() => Int, { description: 'ID' })
   @IsInt({ message: '올바른 형식의 컴포넌트 ID를 입력해주세요.' })
@@ -34,10 +30,20 @@ export class UpdateComponentArgs extends PickType(ComponentEntity, [
   @IsOptional()
   title: string | null;
 
+  @Field({ description: '모바일 제목', nullable: true })
+  @IsString({ message: '올바른 형식의 제목을 입력해주세요.' })
+  @IsOptional()
+  mobileTitle: string | null;
+
   @Field({ description: '내용', nullable: true })
   @IsString({ message: '올바른 형식의 내용을 입력해주세요.' })
   @IsOptional()
   content: string | null;
+
+  @Field({ description: '모바일 내용', nullable: true })
+  @IsString({ message: '올바른 형식의 내용을 입력해주세요.' })
+  @IsOptional()
+  mobileContent: string | null;
 
   @Field(() => ComponentStyleInput, {
     description: '컴포넌트 스타일',

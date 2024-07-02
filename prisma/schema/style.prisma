@@ -80,3 +80,20 @@ model ChildStyle {
     childId Int   @unique
     child   Child @relation(fields: [childId], references: [id])
 }
+
+// 모바일 자식 컴포넌트 스타일
+model MobileChildStyle {
+    id             Int             @id @default(autoincrement())
+    width          String?
+    height         String?
+    margin         String?
+    padding        String?
+    background     String?
+    backgroundType BackgroundType?
+    border         String?
+    borderRadius   String?
+
+    // 자식 컴포넌트
+    mobileChildId Int         @unique
+    mobileChild   MobileChild @relation(fields: [mobileChildId], references: [id])
+}

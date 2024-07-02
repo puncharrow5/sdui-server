@@ -12,6 +12,7 @@ import {
   ComponentMobileStyleEntity,
   ComponentStyleEntity,
   ContentStyleEntity,
+  MobileChildEntity,
   TitleStyleEntity,
 } from '@libs/entity';
 import {
@@ -21,6 +22,7 @@ import {
 } from './dto';
 import { StyleService } from 'src/style/style.service';
 import { ChildService } from 'src/child/child.service';
+import { MobileChildService } from 'src/mobile-child/mobile-child.service';
 import { UseGuards } from '@nestjs/common';
 import { AdminAccessGuard } from '@libs/guard';
 
@@ -30,6 +32,7 @@ export class ComponentResolver {
     private readonly componentService: ComponentService,
     private readonly styleService: StyleService,
     private readonly childService: ChildService,
+    private readonly mobileChildService: MobileChildService,
   ) {}
 
   @UseGuards(AdminAccessGuard)
@@ -98,5 +101,15 @@ export class ComponentResolver {
     const { id } = component;
 
     return this.childService.findManyChild(id);
+  }
+
+  @ResolveField('mobileChildren', () => [MobileChildEntity], {
+    description: '모바일 자식 컴포넌트 목록',
+    nullable: true,
+  })
+  mobileChildren(@Parent() component: ComponentEntity) {
+    const { id } = component;
+
+    return this.mobileChildService.findManyMobileChild(id);
   }
 }

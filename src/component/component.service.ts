@@ -69,8 +69,10 @@ export class ComponentService {
     componentStyle,
     componentMobileStyle,
     title,
+    mobileTitle,
     titleStyle,
     content,
+    mobileContent,
     contentStyle,
     imageFile,
     mobileImageFile,
@@ -109,7 +111,9 @@ export class ComponentService {
       data: {
         name,
         title,
+        mobileTitle,
         content,
+        mobileContent,
         componentStyle: {
           update: { ...componentStyle, background: newBackground },
         },

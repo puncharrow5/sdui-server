@@ -15,8 +15,14 @@ export class ComponentEntity implements Component {
   @Field({ description: '제목', nullable: true })
   title: string | null;
 
+  @Field({ description: '모바일 제목', nullable: true })
+  mobileTitle: string | null;
+
   @Field({ description: '내용', nullable: true })
   content: string | null;
+
+  @Field({ description: '모바일 내용', nullable: true })
+  mobileContent: string | null;
 
   @Field({ description: '삭제 여부' })
   isDelete: boolean;

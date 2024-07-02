@@ -39,4 +39,11 @@ export class StyleService {
       where: { childId },
     });
   }
+
+  // 모바일 자식 컴포넌트 스타일 조회
+  findMobileChildStyle(mobileChildId: number) {
+    return this.prisma.mobileChildStyle.findUnique({
+      where: { mobileChildId },
+    });
+  }
 }
