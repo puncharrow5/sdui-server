@@ -6,6 +6,7 @@ import {
   FindOneSiteByDomainArgs,
   FindOneSiteByIdArgs,
 } from './dto';
+import { DisconnectSiteArgs } from './dto/disconnect-site.args';
 
 @Injectable()
 export class SiteService {
@@ -130,6 +131,20 @@ export class SiteService {
           connect: {
             id: site.id,
           },
+        },
+      },
+    });
+
+    return true;
+  }
+
+  // 사이트 연결 해제
+  async disconnectSite({ id }: DisconnectSiteArgs, adminId: number) {
+    await this.prisma.siteAdmin.delete({
+      where: {
+        siteId_adminId: {
+          adminId,
+          siteId: id,
         },
       },
     });

@@ -27,6 +27,7 @@ import { AuthModel } from 'src/auth/auth.model';
 import { CurrentAuth } from '@libs/decorator';
 import { HeaderService } from 'src/header/header.service';
 import { FooterService } from 'src/footer/footer.service';
+import { DisconnectSiteArgs } from './dto/disconnect-site.args';
 
 @Resolver(() => SiteEntity)
 export class SiteResolver {
@@ -78,6 +79,17 @@ export class SiteResolver {
     const adminId = auth.id;
 
     return this.siteService.connectSite(connectSiteArgs, adminId);
+  }
+
+  @UseGuards(AdminAccessGuard)
+  @Mutation(() => Boolean, { description: '사이트 연결 해제' })
+  disconnectSite(
+    @Args() disconnectSIteArgs: DisconnectSiteArgs,
+    @CurrentAuth() auth: AuthModel,
+  ) {
+    const adminId = auth.id;
+
+    return this.siteService.disconnectSite(disconnectSIteArgs, adminId);
   }
 
   @ResolveField('components', () => [ComponentEntity], {
