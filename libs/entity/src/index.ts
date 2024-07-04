@@ -1,5 +1,6 @@
 export * from './enum';
 export * from './admin.entity';
+export * from './role.entity';
 export * from './site.entity';
 export * from './header.entity';
 export * from './mobile-header.entity';

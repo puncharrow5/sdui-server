@@ -11,4 +11,7 @@ export class AdminEntity implements Admin {
 
   @Field({ description: '비밀번호' })
   password: string;
+
+  @Field(() => Int, { description: '관리자 권한 ID' })
+  roleId: number;
 }

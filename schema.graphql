@@ -2,6 +2,36 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""관리자"""
+type AdminEntity {
+  """ID"""
+  id: Int!
+
+  """이메일"""
+  email: String!
+
+  """비밀번호"""
+  password: String!
+
+  """관리자 권한 ID"""
+  roleId: Int!
+
+  """관리자 권한"""
+  role: RoleEntity
+}
+
+"""관리자 권한"""
+type RoleEntity {
+  """ID"""
+  id: Int!
+
+  """이름"""
+  name: String!
+
+  """설명"""
+  description: String!
+}
+
 """사이트"""
 type SiteEntity {
   """ID"""
@@ -444,6 +474,9 @@ type MobileChildStyleEntity {
 }
 
 type Query {
+  """관리자 정보"""
+  findAdmin: AdminEntity!
+
   """ID로 사이트 조회"""
   findOneSiteById(
     """ID"""

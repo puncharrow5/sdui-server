@@ -4,4 +4,5 @@ export class AuthModel implements AdminEntity {
   id: number;
   email: string;
   password: string;
+  roleId: number;
 }

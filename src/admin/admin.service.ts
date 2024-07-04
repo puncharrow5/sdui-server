@@ -56,6 +56,11 @@ export class AdminService {
       data: {
         email,
         password: hashedPassword,
+        role: {
+          connect: {
+            id: 1,
+          },
+        },
       },
     });
 
@@ -100,10 +105,7 @@ export class AdminService {
   }
 
   // 관리자 ID로 관리자 조회
-  findAdminById(
-    id: number,
-    select?: Prisma.AdminSelect<DefaultArgs>,
-  ): Promise<AdminEntity> {
-    return this.prisma.admin.findUnique({ where: { id }, select });
+  findAdmin(id: number): Promise<AdminEntity> {
+    return this.prisma.admin.findUnique({ where: { id } });
   }
 }
