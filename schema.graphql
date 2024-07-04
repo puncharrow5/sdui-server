@@ -662,7 +662,7 @@ type Mutation {
     id: Int!
   ): Boolean!
 
-  """헤더 설정"""
+  """헤더 수정"""
   updateHeader(
     """사이트 ID"""
     siteId: Int!
@@ -686,7 +686,7 @@ type Mutation {
     file: Upload
   ): Boolean!
 
-  """모바일 헤더 설정"""
+  """모바일 헤더 수정"""
   updateMobileHeader(
     """사이트 ID"""
     siteId: Int!
@@ -725,7 +725,7 @@ type Mutation {
     buttonFile: Upload
   ): Boolean!
 
-  """푸터 설정"""
+  """푸터 수정"""
   updateFooter(
     """사이트 ID"""
     siteId: Int!

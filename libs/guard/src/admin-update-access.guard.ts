@@ -9,8 +9,8 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 import { AuthGuard } from '@nestjs/passport';
 
 @Injectable()
-export class AdminAccessGuard
-  extends AuthGuard('admin-access')
+export class AdminUpdateAccessGuard
+  extends AuthGuard('admin-update-access')
   implements CanActivate
 {
   canActivate(context: ExecutionContext) {
@@ -24,7 +24,7 @@ export class AdminAccessGuard
     return restRequest ?? gqlRequest;
   }
 
-  handleRequest(err, admin) {
+  handleRequest(err, admin, info) {
     if (err || !admin) {
       throw (
         err || new UnauthorizedException({ message: '접근 권한이 없습니다.' })

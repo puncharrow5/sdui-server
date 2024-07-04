@@ -24,7 +24,7 @@ import { StyleService } from 'src/style/style.service';
 import { ChildService } from 'src/child/child.service';
 import { MobileChildService } from 'src/mobile-child/mobile-child.service';
 import { UseGuards } from '@nestjs/common';
-import { AdminAccessGuard } from '@libs/guard';
+import { AdminUpdateAccessGuard } from '@libs/guard';
 
 @Resolver(() => ComponentEntity)
 export class ComponentResolver {
@@ -35,19 +35,19 @@ export class ComponentResolver {
     private readonly mobileChildService: MobileChildService,
   ) {}
 
-  @UseGuards(AdminAccessGuard)
+  @UseGuards(AdminUpdateAccessGuard)
   @Mutation(() => Boolean, { description: '컴포넌트 생성' })
   createComponent(@Args() createComponentArgs: CreateComponentArgs) {
     return this.componentService.createComponent(createComponentArgs);
   }
 
-  @UseGuards(AdminAccessGuard)
+  @UseGuards(AdminUpdateAccessGuard)
   @Mutation(() => Boolean, { description: '컴포넌트 수정' })
   updateComponent(@Args() updateComponentArgs: UpdateComponentArgs) {
     return this.componentService.updateComponent(updateComponentArgs);
   }
 
-  @UseGuards(AdminAccessGuard)
+  @UseGuards(AdminUpdateAccessGuard)
   @Mutation(() => Boolean, { description: '컴포넌트 삭제' })
   deleteComponent(@Args() deleteComponentArgs: DeleteComponentArgs) {
     return this.componentService.deleteComponent(deleteComponentArgs);

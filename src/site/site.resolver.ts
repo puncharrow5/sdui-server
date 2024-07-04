@@ -22,7 +22,7 @@ import {
 } from './dto';
 import { ComponentService } from 'src/component/component.service';
 import { UseGuards } from '@nestjs/common';
-import { AdminAccessGuard } from '@libs/guard';
+import { AdminAccessGuard, AdminUpdateAccessGuard } from '@libs/guard';
 import { AuthModel } from 'src/auth/auth.model';
 import { CurrentAuth } from '@libs/decorator';
 import { HeaderService } from 'src/header/header.service';
@@ -59,7 +59,7 @@ export class SiteResolver {
     return this.siteService.findManySite(adminId);
   }
 
-  @UseGuards(AdminAccessGuard)
+  @UseGuards(AdminUpdateAccessGuard)
   @Mutation(() => Boolean, { description: '사이트 생성' })
   createSite(
     @Args() createSiteArgs: CreateSiteArgs,

@@ -1,13 +1,17 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
 import { PrismaService } from 'nestjs-prisma';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 
 @Injectable()
-export class AdminAccessStrategy extends PassportStrategy(
+export class AdminUpdateAccessStrategy extends PassportStrategy(
   Strategy,
-  'admin-access',
+  'admin-update-access',
 ) {
   constructor(private prisma: PrismaService) {
     super({
@@ -24,7 +28,9 @@ export class AdminAccessStrategy extends PassportStrategy(
 
   async validate(req: Request, payload: any) {
     if (!payload.id) {
-      return new UnauthorizedException();
+      throw new UnauthorizedException({
+        message: '정상적인 토큰이 아닙니다. 다시 로그인 해주시기 바랍니다.',
+      });
     }
 
     const admin = await this.prisma.admin.findUnique({
@@ -35,6 +41,12 @@ export class AdminAccessStrategy extends PassportStrategy(
         role: true,
       },
     });
+
+    if (admin.role.id < 2) {
+      throw new BadRequestException({
+        message: '해당 계정은 사이트 수정 권한이 없습니다.',
+      });
+    }
 
     return admin;
   }

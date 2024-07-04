@@ -11,7 +11,7 @@ import {
   UpdateMobileChildArgs,
 } from './dto';
 import { UseGuards } from '@nestjs/common';
-import { AdminAccessGuard } from '@libs/guard';
+import { AdminUpdateAccessGuard } from '@libs/guard';
 import { MobileChildEntity, MobileChildStyleEntity } from '@libs/entity';
 import { StyleService } from 'src/style/style.service';
 import { MobileChildService } from './mobile-child.service';
@@ -23,19 +23,19 @@ export class MobileChildResolver {
     private readonly styleService: StyleService,
   ) {}
 
-  @UseGuards(AdminAccessGuard)
+  @UseGuards(AdminUpdateAccessGuard)
   @Mutation(() => Boolean, { description: '모바일 자식 컴포넌트 생성' })
   createMobileChild(@Args() createMobileChildArgs: CreateMobileChildArgs) {
     return this.mobileChildService.createMobileChild(createMobileChildArgs);
   }
 
-  @UseGuards(AdminAccessGuard)
+  @UseGuards(AdminUpdateAccessGuard)
   @Mutation(() => Boolean, { description: '모바일 자식 컴포넌트 업데이트' })
   updateMobileChild(@Args() updateMobileChildArgs: UpdateMobileChildArgs) {
     return this.mobileChildService.updateMobileChild(updateMobileChildArgs);
   }
 
-  @UseGuards(AdminAccessGuard)
+  @UseGuards(AdminUpdateAccessGuard)
   @Mutation(() => Boolean, { description: '모바일 자식 컴포넌트 삭제' })
   deleteMobileChild(@Args() deleteMobileChildArgs: DeleteMobileChildArgs) {
     return this.mobileChildService.deleteMobileChild(deleteMobileChildArgs);

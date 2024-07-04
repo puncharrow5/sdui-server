@@ -4,9 +4,7 @@ import * as argon2 from 'argon2';
 import { CreateAdminArgs, LoginWithEmailArgs } from './dto';
 import { CookieOptions, Response } from 'express';
 import { JwtService } from '@nestjs/jwt';
-import { Prisma } from '@prisma/client';
-import { DefaultArgs } from '@prisma/client/runtime/library';
-import { AdminEntity } from '@libs/entity';
+import { AdminEntity, RoleEntity } from '@libs/entity';
 
 @Injectable()
 export class AdminService {
@@ -24,11 +22,11 @@ export class AdminService {
   ) {}
 
   // AccessToken 발급
-  createAccessToken(email: string, id: number) {
+  createAccessToken(id: number, email: string) {
     const accessToken = this.jwtService.sign(
       {
-        email,
         id,
+        email,
       },
       {
         secret: process.env.ACCESS_TOKEN_SECRET_KEY,
@@ -73,6 +71,9 @@ export class AdminService {
       where: {
         email,
       },
+      include: {
+        role: true,
+      },
     });
 
     if (!admin) {
@@ -86,20 +87,16 @@ export class AdminService {
     }
 
     // Access Token 생성
-    const accessToken = this.createAccessToken(admin.email, admin.id);
+    const accessToken = this.createAccessToken(admin.id, admin.email);
 
-    const adminInfo = { id: admin.id, email: admin.email };
-
-    res
-      .cookie('accessToken', accessToken, this.tokenCookieOption)
-      .cookie('admin', JSON.stringify(adminInfo), this.adminCookieOption);
+    res.cookie('accessToken', accessToken, this.tokenCookieOption);
 
     return true;
   }
 
   // 로그아웃
   async logout(res: Response) {
-    res.clearCookie('accessToken').clearCookie('admin');
+    res.clearCookie('accessToken');
 
     return true;
   }
