@@ -16,5 +16,5 @@ model Site {
     footer Footer?
 
     // 관리자
-    admins SiteAdmin[]
+    admins Admin[]
 }

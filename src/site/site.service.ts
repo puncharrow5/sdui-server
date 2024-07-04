@@ -44,7 +44,7 @@ export class SiteService {
       where: {
         admins: {
           some: {
-            adminId,
+            id: adminId,
           },
         },
       },
@@ -62,32 +62,14 @@ export class SiteService {
         throw new BadRequestException('이미 등록된 도메인입니다.');
       }
 
-      const admin = await tx.admin.findUnique({
-        where: { id: adminId },
-      });
-
-      if (!admin) {
-        throw new BadRequestException('등록되지 않은 관리자입니다.');
-      }
-
       const site = await tx.site.create({
         data: {
           name,
           email,
           domain,
-        },
-      });
-
-      await tx.siteAdmin.create({
-        data: {
-          admin: {
+          admins: {
             connect: {
               id: adminId,
-            },
-          },
-          site: {
-            connect: {
-              id: site.id,
             },
           },
         },
@@ -108,28 +90,29 @@ export class SiteService {
       throw new BadRequestException('존재하지 않는 도메인입니다.');
     }
 
-    const checkConnect = await this.prisma.siteAdmin.findUnique({
+    const findSite = await this.prisma.site.findFirst({
       where: {
-        siteId_adminId: {
-          adminId,
-          siteId: site.id,
-        },
-      },
-    });
-    if (checkConnect) {
-      throw new BadRequestException('이미 해당 계정에 등록된 사이트입니다.');
-    }
-
-    await this.prisma.siteAdmin.create({
-      data: {
-        admin: {
-          connect: {
+        domain,
+        admins: {
+          some: {
             id: adminId,
           },
         },
-        site: {
+      },
+    });
+
+    if (findSite) {
+      throw new BadRequestException('이미 해당 계정에 등록된 사이트입니다.');
+    }
+
+    await this.prisma.site.update({
+      where: {
+        domain,
+      },
+      data: {
+        admins: {
           connect: {
-            id: site.id,
+            id: adminId,
           },
         },
       },
@@ -140,11 +123,15 @@ export class SiteService {
 
   // 사이트 연결 해제
   async disconnectSite({ id }: DisconnectSiteArgs, adminId: number) {
-    await this.prisma.siteAdmin.delete({
+    await this.prisma.site.update({
       where: {
-        siteId_adminId: {
-          adminId,
-          siteId: id,
+        id,
+      },
+      data: {
+        admins: {
+          disconnect: {
+            id: adminId,
+          },
         },
       },
     });

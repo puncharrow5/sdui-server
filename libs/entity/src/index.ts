@@ -6,7 +6,6 @@ export * from './header.entity';
 export * from './mobile-header.entity';
 export * from './component.entity';
 export * from './footer.entity';
-export * from './site-admin.entity';
 export * from './component-style.entity';
 export * from './component-mobile-style.entity';
 export * from './title-style.entity';
